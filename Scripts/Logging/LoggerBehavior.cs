@@ -18,8 +18,6 @@ namespace RockVR.Video.Demo
         private static List<object> _toLog;
         private Vector3 gazeToWorld;
         private static string CSVheader = AppConstants.CsvFirstRow;
-        //[SerializeField] private Camera dedicatedCapture;
-        //[SerializeField] private Transform viveCtrlRight;
         private Camera dedicatedCapture;
 
         //CircleTruc log var
@@ -27,6 +25,7 @@ namespace RockVR.Video.Demo
         private string gazePosx, gazePosy;
         private float timer;
         private float TTFF;
+        public GameObject GazePosObj;
 
         //private Camera dedicatedCapture;
 
@@ -44,10 +43,8 @@ namespace RockVR.Video.Demo
         {
             if (GameObject.FindGameObjectsWithTag("hitCircle").Length == 1)
             {
-                gazePosx = (GameObject.FindGameObjectWithTag("GazeMarker").transform.
-                localPosition.x * 10).ToString("F2");
-                gazePosy = (GameObject.FindGameObjectWithTag("GazeMarker").transform.
-                localPosition.y * 10).ToString("F2");
+                gazePosx = (GazePosObj.transform.localPosition.x * 10).ToString("F2");
+                gazePosy = (GazePosObj.transform.localPosition.y * 10).ToString("F2");
                 CircleInfo();
                 DoLog();
                 AddToLog();
@@ -93,34 +90,10 @@ namespace RockVR.Video.Demo
                 // n = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilTools.FloatFromDictionary(PupilTools.gazeDictionary, "confidence"), 3) : double.NaN, // confidence value calculated after calibration 
                 confLeft = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilInfo.confidence1, 3) : double.NaN, // confidence value calculated after calibration 
                 confRight = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilInfo.confidence0, 3) : double.NaN, // confidence value calculated after calibration 
+                confGaze = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilInfo.gazeConfidence, 3) : double.NaN,
 
                 circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
                 TimeToFirstFix = TTFF != 0 ? Math.Round(TTFF, 3) : double.NaN
-                /* 
-                // Baking tray variables
-                o = SceneManage.loadTestScene == 2 ? SceneManage.getViveCtrlRight.transform.position.x : double.NaN,
-                p = SceneManage.loadTestScene == 2 ? SceneManage.getViveCtrlRight.transform.position.y : double.NaN,
-                q = SceneManage.loadTestScene == 2 ? SceneManage.getViveCtrlRight.transform.position.z : double.NaN,
-                r = SceneManage.loadTestScene == 2 ? SceneManage.getViveCtrlRight.transform.rotation.x : double.NaN,
-                s = SceneManage.loadTestScene == 2 ? SceneManage.getViveCtrlRight.transform.rotation.y : double.NaN,
-                t = SceneManage.loadTestScene == 2 ? SceneManage.getViveCtrlRight.transform.rotation.z : double.NaN,
-                tt = SceneManage.loadTestScene == 2 ? ControllerGrabObject.bunLastActive.ctrlEventHolder : "null",
-                ttt = SceneManage.loadTestScene == 2 && ControllerGrabObject.objectInHand != null ? ControllerGrabObject.bunLastActive.bunActive.name : "null",
-                u = SceneManage.loadTestScene == 2 && ControllerGrabObject.objectInHand != null ? ControllerGrabObject.bunLastActive.bunActive.transform.position.x : double.NaN,
-                v = SceneManage.loadTestScene == 2 && ControllerGrabObject.objectInHand != null ? ControllerGrabObject.bunLastActive.bunActive.transform.position.y : double.NaN,
-                x = SceneManage.loadTestScene == 2 && ControllerGrabObject.objectInHand != null ? ControllerGrabObject.bunLastActive.bunActive.transform.position.z : double.NaN,
-
-                // Museum variables
-                cbis = SceneManage.loadTestScene == 3 && PaintingsSets.CurrentSet != null ? PaintingsSets.CurrentSet.SetName : "null",
-                ord = SceneManage.loadTestScene == 3 ? PaintingsSets.myIntArrayString : "null",
-                oo = SceneManage.loadTestScene == 3 && raycastHit.transform != null ? raycastHit.transform.name : "null",
-                ox = SceneManage.loadTestScene == 3 && raycastHit.transform != null ? raycastHit.transform.position.x : double.NaN,
-                oy = SceneManage.loadTestScene == 3 && raycastHit.transform != null ? raycastHit.transform.position.y : double.NaN,
-                oz = SceneManage.loadTestScene == 3 && raycastHit.transform != null ? raycastHit.transform.position.z : double.NaN,
-                oox = SceneManage.loadTestScene == 3 && raycastHit.transform != null ? CalculEyeGazeOnObject(raycastHit).x : double.NaN,
-                ooy = SceneManage.loadTestScene == 3 && raycastHit.transform != null ? CalculEyeGazeOnObject(raycastHit).y : double.NaN,
-                ooz = SceneManage.loadTestScene == 3 && raycastHit.transform != null ? CalculEyeGazeOnObject(raycastHit).z : double.NaN
-                */
             };
             _toLog.Add(tmp);
         }

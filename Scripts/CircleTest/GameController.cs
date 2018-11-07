@@ -6,24 +6,34 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    private RayCaster rCaster;
+    private RayCastF rCaster;
     private RaycastHit hit;
     // private GameObject mainCamera;
     private SpawnCircle sc;
+    private bool dotVisible;
 
     // Use this for initialization
     void Start()
     {
-        // da = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
-        rCaster = Camera.main.GetComponent<RayCaster>();
+        rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
+        // rCaster = Camera.main.GetComponent<RayCaster>();
         var spawnCircle = GameObject.Find("Quadri");
         sc = spawnCircle.GetComponent<SpawnCircle>();
-        SceneManager.UnloadSceneAsync("CircleTest 1");
+        // SceneManager.UnloadSceneAsync("CircleTest 1");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+            var DotMap = GameObject.FindGameObjectsWithTag("GazeMarker");
+            foreach(var dot in DotMap)
+            {
+                dotVisible = !dotVisible;
+                dot.GetComponent<Renderer>().enabled = dotVisible;
+            }
+        }
         if (Physics.Raycast(rCaster.ray, out hit))
         {
             //if there is max 1 circle on the grid
@@ -69,9 +79,12 @@ public class GameController : MonoBehaviour
     private void ReduceCircle(GameObject circle)
     {
         //10f * Time.deltaTime so the computers speed doesn't affect the speed
-        circle.transform.localScale =
-        new Vector3(circle.transform.localScale.x - 15f * (Time.deltaTime * 2),
-        0.1f, circle.transform.localScale.z - 15f * (Time.deltaTime * 2));
+        if (circle.transform.localScale.x > 0)
+        {
+            circle.transform.localScale =
+           new Vector3(circle.transform.localScale.x - 15f * (Time.deltaTime * 2),
+           0.1f, circle.transform.localScale.z - 15f * (Time.deltaTime * 2));
+        }
     }
 
     /// <summary>

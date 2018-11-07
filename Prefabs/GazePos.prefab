@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135366429308440828}
   - component: {fileID: 114418135297560772}
   m_Layer: 0
-  m_Name: GazeMarker
+  m_Name: GazePos
   m_TagString: GazeMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94412abeb5d1cad40b2539f431a52514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundCollider: {fileID: 0}
+  dotMark: {fileID: 0}
 --- !u!135 &135366429308440828
 SphereCollider:
   m_ObjectHideFlags: 1
