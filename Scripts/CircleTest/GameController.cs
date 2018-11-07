@@ -72,12 +72,6 @@ public class GameController : MonoBehaviour
         circle.transform.localScale =
         new Vector3(circle.transform.localScale.x - 15f * (Time.deltaTime * 2),
         0.1f, circle.transform.localScale.z - 15f * (Time.deltaTime * 2));
-        // var childs = circle.GetComponentsInChildren<Transform>();
-        // foreach (Transform child in childs)
-        // {
-        //     child.localScale = new Vector3(child.localScale.x + 10f * Time.deltaTime,
-        //     child.localScale.y + 10f * Time.deltaTime, 0.0001f);
-        // }
     }
 
     /// <summary>
