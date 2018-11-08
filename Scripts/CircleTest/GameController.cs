@@ -25,12 +25,14 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //show/hide gaze dots
         if (Input.GetKeyUp(KeyCode.O))
         {
+            dotVisible = !dotVisible;
             var DotMap = GameObject.FindGameObjectsWithTag("GazeMarker");
-            foreach(var dot in DotMap)
+            foreach (var dot in DotMap)
             {
-                dotVisible = !dotVisible;
+                //renderer true to false each time you press 'O'
                 dot.GetComponent<Renderer>().enabled = dotVisible;
             }
         }

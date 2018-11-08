@@ -33,23 +33,26 @@ public class CircleLife : MonoBehaviour
             TTFF += Time.deltaTime;
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            //save the circle's scale and destroy it
             sc.circleFinalSize[index] = gameObject.transform.localScale.x;
             Destroy(gameObject);
         }
     }
+
+    //Change the color of the circle compared to his size
     private void ColorLevel()
     {
-        if(gameObject.transform.localScale.x > 0)
+        if (gameObject.transform.localScale.x > 20)
         {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
         }
-        if(gameObject.transform.localScale.x > 10)
+        else if (gameObject.transform.localScale.x > 10)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.blue;
         }
-        if(gameObject.transform.localScale.x > 20)
+        else if (gameObject.transform.localScale.x > 0)
         {
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
     }
 }

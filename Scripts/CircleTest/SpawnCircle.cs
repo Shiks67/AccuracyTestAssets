@@ -67,19 +67,14 @@ public class SpawnCircle : MonoBehaviour
     /// </summary>
     /// <param name="id">id of the circle in the array that contain all the positions</param>
     /// <param name="result">if true the circle will have the final size (after calibration test)</param>
-    private void newCircle(int id, bool result = false)
+    private void newCircle(int id)
     {
         GameObject newObject = Instantiate(spawnObject);
         newObject.transform.SetParent(canvasParent.transform);
-        newObject.transform.localScale = new Vector3(30, 0.1f, 30);
+        newObject.transform.localScale = new Vector3(circleFinalSize[id], 0.1f, circleFinalSize[id]);
         newObject.transform.localRotation = Quaternion.Euler(90, 0, 0);
         newObject.transform.localPosition = spawnArea[id];
         newObject.GetComponent<CircleLife>().Init(id);
-        if (result)
-        {
-            newObject.transform.localScale =
-            new Vector3(circleFinalSize[id], 0.1f, circleFinalSize[id]);
-        }
     }
 
     /// <summary>
@@ -90,7 +85,7 @@ public class SpawnCircle : MonoBehaviour
         DestroyAllCircles();
         for (int i = 0; i < 9; i++)
         {
-            newCircle(i, true);
+            newCircle(i);
         }
     }
 

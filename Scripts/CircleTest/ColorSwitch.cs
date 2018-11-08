@@ -17,6 +17,7 @@ public class ColorSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //switch the color of the trigger
         waitTime += Time.deltaTime;
         if (waitTime < timer)
         {
