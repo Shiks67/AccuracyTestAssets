@@ -21,6 +21,8 @@ public class SpawnCircle : MonoBehaviour
     public Text countObj;
     private float countDown = 3f;
 
+    public static List<GameObject> targetCircle = new List<GameObject>();
+
     // Use this for initialization
     void Start()
     {
@@ -42,8 +44,7 @@ public class SpawnCircle : MonoBehaviour
             countObj.gameObject.SetActive(false);
         }
 
-        var nbGO = GameObject.FindGameObjectsWithTag("hitCircle").Length;
-        if (nbGO < 1 && nbGO < 5)
+        if (targetCircle.Count < 1 && targetCircle.Count < 5)
         {
             if (isVisited.Contains(false))
             {
@@ -66,7 +67,6 @@ public class SpawnCircle : MonoBehaviour
     /// Create a new circle with his id's informations 
     /// </summary>
     /// <param name="id">id of the circle in the array that contain all the positions</param>
-    /// <param name="result">if true the circle will have the final size (after calibration test)</param>
     private void newCircle(int id)
     {
         GameObject newObject = Instantiate(spawnObject);
@@ -75,6 +75,7 @@ public class SpawnCircle : MonoBehaviour
         newObject.transform.localRotation = Quaternion.Euler(90, 0, 0);
         newObject.transform.localPosition = spawnArea[id];
         newObject.GetComponent<CircleLife>().Init(id);
+        targetCircle.Add(newObject);
     }
 
     /// <summary>
@@ -101,10 +102,10 @@ public class SpawnCircle : MonoBehaviour
             countObj.gameObject.SetActive(true);
             countDown = 3f;
         }
-        var allCircles = GameObject.FindGameObjectsWithTag("hitCircle");
-        for (var i = 0; i < allCircles.Length; i++)
+        foreach (var obj in targetCircle)
         {
-            Destroy(allCircles[i]);
+            Destroy(obj);
+            SpawnCircle.targetCircle.Clear();
         }
     }
 }

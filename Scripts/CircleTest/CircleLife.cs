@@ -27,14 +27,17 @@ public class CircleLife : MonoBehaviour
     {
         ColorLevel();
         //if there is more than 1 circle, return
-        if (GameObject.FindGameObjectsWithTag("hitCircle").Length > 1)
+        if (SpawnCircle.targetCircle.Count > 1)
             return;
         if (isTTFF) //update TTFF time until the circle is focused by the gaze point
             TTFF += Time.deltaTime;
+        if (gameObject.transform.localScale.x < 30)
+            isTTFF = false;
         if (Input.GetKeyUp(KeyCode.Space))
         {
             //save the circle's scale and destroy it
             sc.circleFinalSize[index] = gameObject.transform.localScale.x;
+            SpawnCircle.targetCircle.Remove(gameObject);
             Destroy(gameObject);
         }
     }

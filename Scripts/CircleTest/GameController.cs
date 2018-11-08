@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -29,17 +30,15 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.O))
         {
             dotVisible = !dotVisible;
-            var DotMap = GameObject.FindGameObjectsWithTag("GazeMarker");
-            foreach (var dot in DotMap)
+            foreach (var dot in GazeMarker.listDotMark)
             {
-                //renderer true to false each time you press 'O'
                 dot.GetComponent<Renderer>().enabled = dotVisible;
             }
         }
         if (Physics.Raycast(rCaster.ray, out hit))
         {
             //if there is max 1 circle on the grid
-            if (GameObject.FindGameObjectsWithTag("hitCircle").Length == 1)
+            if (SpawnCircle.targetCircle.Count   == 1)
             {
                 //Switch on hitted object's tag by the gaze
                 switch (hit.transform.gameObject.tag)
@@ -54,7 +53,7 @@ public class GameController : MonoBehaviour
                         sc.DestroyAllCircles(true);
                         break;
                     default: //by default we extend the size of the circle
-                        ExtendCircle(GameObject.FindGameObjectWithTag("hitCircle").gameObject);
+                        ExtendCircle(SpawnCircle.targetCircle.First());
                         return;
                 }
             }
@@ -84,8 +83,8 @@ public class GameController : MonoBehaviour
         if (circle.transform.localScale.x > 0)
         {
             circle.transform.localScale =
-           new Vector3(circle.transform.localScale.x - 15f * (Time.deltaTime * 2),
-           0.1f, circle.transform.localScale.z - 15f * (Time.deltaTime * 2));
+           new Vector3(circle.transform.localScale.x - 15f * (Time.deltaTime * 4),
+           0.1f, circle.transform.localScale.z - 15f * (Time.deltaTime * 4));
         }
     }
 

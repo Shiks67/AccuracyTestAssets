@@ -41,7 +41,7 @@ namespace RockVR.Video.Demo
 
         private void Update()
         {
-            if (GameObject.FindGameObjectsWithTag("hitCircle").Length == 1)
+            if (SpawnCircle.targetCircle.Count == 1)
             {
                 gazePosx = (GazePosObj.transform.localPosition.x * 10).ToString("F2");
                 gazePosy = (GazePosObj.transform.localPosition.y * 10).ToString("F2");
@@ -53,8 +53,8 @@ namespace RockVR.Video.Demo
 
         private void CircleInfo()
         {
-            if (circleObject != GameObject.FindGameObjectWithTag("hitCircle").gameObject)
-                circleObject = GameObject.FindGameObjectWithTag("hitCircle").gameObject;
+            if (circleObject != SpawnCircle.targetCircle.First())
+                circleObject = SpawnCircle.targetCircle.First();
             if (!circleObject.GetComponent<CircleLife>().isTTFF)
                 TTFF = circleObject.GetComponent<CircleLife>().TTFF;
             else

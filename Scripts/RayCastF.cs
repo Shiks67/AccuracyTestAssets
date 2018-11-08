@@ -10,7 +10,7 @@ public class RayCastF : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        myCamera = GameObject.FindGameObjectWithTag("EditorOnly").transform;
+        myCamera = gameObject.transform;
     }
 
     // Update is called once per frame

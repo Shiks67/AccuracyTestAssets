@@ -1661,6 +1661,11 @@ Prefab:
       propertyPath: m_Name
       value: GazePos
       objectReference: {fileID: 0}
+    - target: {fileID: 114418135297560772, guid: e3914e4d7d486584ba9da6442762ea46,
+        type: 2}
+      propertyPath: GazeDotMap
+      value: 
+      objectReference: {fileID: 580897369}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3914e4d7d486584ba9da6442762ea46, type: 2}
   m_IsPrefabAsset: 0

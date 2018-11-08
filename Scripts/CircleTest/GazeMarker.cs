@@ -5,11 +5,13 @@ using UnityEngine;
 public class GazeMarker : MonoBehaviour
 {
 
-    private RayCastF rCaster;
+    public GameObject GazeDotMap;
     public GameObject backgroundCollider;
     public GameObject dotMark;
+    public static List<GameObject> listDotMark = new List<GameObject>();
+    private RayCastF rCaster;
     private Vector3 pos;
-    private float timer = 0.2f;
+    private float timer = 0.1f;
 
     void Start()
     {
@@ -41,16 +43,17 @@ public class GazeMarker : MonoBehaviour
             }
             //if a circle is hitted and the timer is at 0
             //create a dot at the position on the background's collider
-            if (hitObject == GameObject.FindGameObjectWithTag("hitCircle") 
+            if (SpawnCircle.targetCircle.Contains(hitObject)
             && timer < 0)
             {
                 GameObject newObject = Instantiate(dotMark);
                 //set parent so the dots stay at the same place on the grid
-                newObject.transform.SetParent(GameObject.Find("GazeDotMap").transform);
+                newObject.transform.SetParent(GazeDotMap.transform);
                 //position from the hit.point on the background
                 newObject.transform.position = pos;
                 newObject.GetComponent<Renderer>().material.color = Color.black;
-                timer = 0.2f;
+                listDotMark.Add(newObject);
+                timer = 0.1f;
             }
         }
     }
