@@ -6,7 +6,7 @@ public class AimCalculator : MonoBehaviour
 {
 
     private GameObject[] lastDots;
-    private Vector3 
+    
     // Use this for initialization
     void Start()
     {

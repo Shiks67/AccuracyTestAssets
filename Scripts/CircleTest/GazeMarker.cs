@@ -9,14 +9,14 @@ public class GazeMarker : MonoBehaviour
     public GameObject backgroundCollider;
     public GameObject dotMark;
     public static List<GameObject> listDotMark = new List<GameObject>();
-    private RayCastF rCaster;
+    private RayCaster rCaster;
     private Vector3 pos;
     private float timer = 0.1f;
 
     void Start()
     {
-        rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
-        // rCaster = Camera.main.GetComponent<RayCaster>();
+        // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
+        rCaster = Camera.main.GetComponent<RayCaster>();
     }
 
     // Update is called once per frame

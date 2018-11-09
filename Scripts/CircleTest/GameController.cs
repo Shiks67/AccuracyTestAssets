@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    private RayCastF rCaster;
+    private RayCaster rCaster;
     private RaycastHit hit;
     // private GameObject mainCamera;
     private SpawnCircle sc;
@@ -16,8 +16,8 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
-        // rCaster = Camera.main.GetComponent<RayCaster>();
+        // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
+        rCaster = Camera.main.GetComponent<RayCaster>();
         var spawnCircle = GameObject.Find("Quadri");
         sc = spawnCircle.GetComponent<SpawnCircle>();
         // SceneManager.UnloadSceneAsync("CircleTest 1");

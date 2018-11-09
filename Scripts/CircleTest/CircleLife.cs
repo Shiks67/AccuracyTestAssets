@@ -7,7 +7,6 @@ public class CircleLife : MonoBehaviour
 {
     public float TTFF;
     public bool isTTFF;
-    private SpawnCircle sc;
     private int index;
     public void Init(int index)
     {
@@ -17,8 +16,6 @@ public class CircleLife : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        var quadri = GameObject.Find("Quadri");
-        sc = quadri.GetComponent<SpawnCircle>();
         isTTFF = true;
     }
 
@@ -36,7 +33,7 @@ public class CircleLife : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             //save the circle's scale and destroy it
-            sc.circleFinalSize[index] = gameObject.transform.localScale.x;
+            SpawnCircle.circleFinalSize[index] = gameObject.transform.localScale.x;
             SpawnCircle.targetCircle.Remove(gameObject);
             Destroy(gameObject);
         }

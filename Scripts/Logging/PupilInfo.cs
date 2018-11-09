@@ -18,8 +18,8 @@ public class PupilInfo : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // PupilTools.SubscribeTo("pupil.");
-        // PupilTools.SubscribeTo("gaze");
+        PupilTools.SubscribeTo("pupil.");
+        PupilTools.SubscribeTo("gaze");
         PupilTools.OnReceiveData += CustomReceiveData;
         countDown = refreshTime;
     }
@@ -27,8 +27,8 @@ public class PupilInfo : MonoBehaviour
     void StartPupilSubscription()
     {
         PupilTools.CalibrationMode = Calibration.Mode._2D;
-        PupilTools.SubscribeTo("pupil.");
-        PupilTools.SubscribeTo("gaze");
+        // PupilTools.SubscribeTo("pupil.");
+        // PupilTools.SubscribeTo("gaze");
     }
 
     void StopPupilSubscription()
