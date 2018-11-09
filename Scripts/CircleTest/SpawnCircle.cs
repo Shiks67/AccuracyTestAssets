@@ -13,7 +13,7 @@ public class SpawnCircle : MonoBehaviour
     new Vector3(-30f,0f,-0.1f), new Vector3(0f,0f,-0.1f), new Vector3(30f,0f,-0.1f),
     new Vector3(-30f,-30f,-0.1f), new Vector3(0f,-30f,-0.1f), new Vector3(30f,-30f,-0.1f)};
 
-    public static float[] circleFinalSize = {30,30,30,30,30,30,30,30,30};
+    public static float[] circleFinalSize = { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
     private bool[] isVisited = new bool[9];
 
     private int index;
@@ -97,7 +97,17 @@ public class SpawnCircle : MonoBehaviour
     {
         if (retry)
         {
+            foreach (var obj in GazeMarker.listDotMark)
+            {
+                Destroy(obj);
+            }
+            foreach (var obj in GazeMarker.oldListDotMark)
+            {
+                Destroy(obj);
+            }
             circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+            GazeMarker.listDotMark.Clear();
+            GazeMarker.oldListDotMark.Clear();
             isVisited = new bool[9];
             countObj.gameObject.SetActive(true);
             countDown = 3f;

@@ -9,6 +9,7 @@ public class GazeMarker : MonoBehaviour
     public GameObject backgroundCollider;
     public GameObject dotMark;
     public static List<GameObject> listDotMark = new List<GameObject>();
+    public static List<GameObject> oldListDotMark = new List<GameObject>();
     private RayCaster rCaster;
     private Vector3 pos;
     private float timer = 0.1f;
@@ -43,8 +44,8 @@ public class GazeMarker : MonoBehaviour
             }
             //if a circle is hitted and the timer is at 0
             //create a dot at the position on the background's collider
-            if (SpawnCircle.targetCircle.Contains(hitObject)
-            && timer < 0)
+            if (SpawnCircle.targetCircle.Contains(hitObject) && 
+            SpawnCircle.targetCircle.Count == 1)// && timer < 0)
             {
                 GameObject newObject = Instantiate(dotMark);
                 //set parent so the dots stay at the same place on the grid

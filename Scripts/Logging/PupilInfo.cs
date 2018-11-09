@@ -53,7 +53,6 @@ public class PupilInfo : MonoBehaviour
                         {
                             confidence1 = PupilTools.FloatFromDictionary(dictionary, item.Key);
                             lconf.text = "Left conf\n" + (confidence1 * 100) + "%";
-                            print(confidence1);
                         }
                         break;
                     default:
@@ -73,7 +72,6 @@ public class PupilInfo : MonoBehaviour
                         {
                             confidence0 = PupilTools.FloatFromDictionary(dictionary, item.Key);
                             rconf.text = "Right conf\n" + (confidence0 * 100) + "%";
-                            print(confidence0);
                         }
                         break;
                     default:
@@ -92,7 +90,6 @@ public class PupilInfo : MonoBehaviour
                         if (countDown < 0)
                         {
                             gazeConfidence = PupilTools.FloatFromDictionary(dictionary, item.Key);
-                            print(gazeConfidence);
                             countDown = refreshTime;
                         }
                         break;

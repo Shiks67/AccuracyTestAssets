@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     private RaycastHit hit;
     // private GameObject mainCamera;
     private SpawnCircle sc;
-    private bool dotVisible;
+    private bool dotMarkVisibility;
 
     // Use this for initialization
     void Start()
@@ -29,16 +29,20 @@ public class GameController : MonoBehaviour
         //show/hide gaze dots
         if (Input.GetKeyUp(KeyCode.O))
         {
-            dotVisible = !dotVisible;
+            dotMarkVisibility = !dotMarkVisibility;
             foreach (var dot in GazeMarker.listDotMark)
             {
-                dot.GetComponent<Renderer>().enabled = dotVisible;
+                dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
+            }
+            foreach (var dot in GazeMarker.oldListDotMark)
+            {
+                dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
             }
         }
         if (Physics.Raycast(rCaster.ray, out hit))
         {
             //if there is max 1 circle on the grid
-            if (SpawnCircle.targetCircle.Count   == 1)
+            if (SpawnCircle.targetCircle.Count == 1)
             {
                 //Switch on hitted object's tag by the gaze
                 switch (hit.transform.gameObject.tag)
