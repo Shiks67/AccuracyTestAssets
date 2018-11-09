@@ -18,6 +18,8 @@ public class PupilInfo : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        // PupilTools.OnConnected += StartPupilSubscription;
+        // PupilTools.OnDisconnecting += StopPupilSubscription;
         PupilTools.SubscribeTo("pupil.");
         PupilTools.SubscribeTo("gaze");
         PupilTools.OnReceiveData += CustomReceiveData;
@@ -51,6 +53,7 @@ public class PupilInfo : MonoBehaviour
                         {
                             confidence1 = PupilTools.FloatFromDictionary(dictionary, item.Key);
                             lconf.text = "Left conf\n" + (confidence1 * 100) + "%";
+                            print(confidence1);
                         }
                         break;
                     default:
@@ -70,6 +73,7 @@ public class PupilInfo : MonoBehaviour
                         {
                             confidence0 = PupilTools.FloatFromDictionary(dictionary, item.Key);
                             rconf.text = "Right conf\n" + (confidence0 * 100) + "%";
+                            print(confidence0);
                         }
                         break;
                     default:
@@ -78,16 +82,18 @@ public class PupilInfo : MonoBehaviour
             }
         }
 
-        if(topic.StartsWith("gaze"))
+        if (topic.StartsWith("gaze"))
         {
             foreach (var item in dictionary)
             {
-                switch(item.Key)
+                switch (item.Key)
                 {
                     case "confidence":
                         if (countDown < 0)
                         {
                             gazeConfidence = PupilTools.FloatFromDictionary(dictionary, item.Key);
+                            print(gazeConfidence);
+                            countDown = refreshTime;
                         }
                         break;
                     default:
@@ -95,7 +101,6 @@ public class PupilInfo : MonoBehaviour
                 }
             }
         }
-        countDown = refreshTime;
     }
 
     void OnDisable()

@@ -61,13 +61,13 @@ public class EyePositioner : MonoBehaviour
                             positionForKey.y -= 0.5f;
                             positionForKey.x *= -1;
                             leftPupil.transform.localPosition = positionForKey;
-                            if(confidence1 > .6)
+                            if (confidence1 > .6)
                             {
                                 leftPupil.GetComponent<Renderer>().material.color = Color.green;
                             }
                             else
                             {
-                                leftPupil.GetComponent<Renderer>().material.color = Color.red;                                
+                                leftPupil.GetComponent<Renderer>().material.color = Color.red;
                             }
                         }
                         break;
@@ -119,13 +119,13 @@ public class EyePositioner : MonoBehaviour
                             positionForKey.y -= 0.5f;
                             positionForKey.y *= -1;
                             rightPupil.transform.localPosition = positionForKey;
-                            if(confidence0 > .6)
+                            if (confidence0 > .6)
                             {
                                 rightPupil.GetComponent<Renderer>().material.color = Color.green;
                             }
                             else
                             {
-                                rightPupil.GetComponent<Renderer>().material.color = Color.red;                                
+                                rightPupil.GetComponent<Renderer>().material.color = Color.red;
                             }
                         }
                         break;
