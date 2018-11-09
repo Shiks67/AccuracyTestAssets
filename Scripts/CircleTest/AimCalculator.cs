@@ -6,7 +6,7 @@ using System.Linq;
 
 public class AimCalculator : MonoBehaviour
 {
-    private GameObject[] lastDots = new GameObject[5];
+    private GameObject[] lastDots = new GameObject[10];
     private Vector3 accuracyPoint = new Vector3(0, 0, -0.1f);
     // private Vector3 upL = new Vector3(0, 0, 9);
     // private Vector3 upR = new Vector3(0, 0, 9);
@@ -23,17 +23,17 @@ public class AimCalculator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GazeMarker.listDotMark.Count <= 5)
+        if (GazeMarker.listDotMark.Count <= 10)
         {
             gameObject.GetComponent<Image>().enabled = false;
             return;
         }
         gameObject.GetComponent<Image>().enabled = true;
         print("before for : ");
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             lastDots[i] = GazeMarker.listDotMark
-            [(GazeMarker.listDotMark.Count - 5) + i];
+            [(GazeMarker.listDotMark.Count - 10) + i];
         }
         print("after for : ");
         accuracyPoint.x = lastDots.Average(item => item.gameObject.transform.localPosition.x);

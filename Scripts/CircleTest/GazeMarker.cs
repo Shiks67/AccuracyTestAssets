@@ -45,7 +45,7 @@ public class GazeMarker : MonoBehaviour
             //if a circle is hitted and the timer is at 0
             //create a dot at the position on the background's collider
             if (SpawnCircle.targetCircle.Contains(hitObject) && 
-            SpawnCircle.targetCircle.Count == 1)// && timer < 0)
+            SpawnCircle.targetCircle.Count == 1 && timer < 0)
             {
                 GameObject newObject = Instantiate(dotMark);
                 //set parent so the dots stay at the same place on the grid
