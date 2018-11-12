@@ -7,7 +7,7 @@ using System.Linq;
 public class AimCalculator : MonoBehaviour
 {
     private GameObject[] lastDots = new GameObject[10];
-    private Vector3 accuracyPoint = new Vector3(0, 0, -0.1f);
+    private Vector3 accuracyPoint = new Vector3(0, 0, -0.2f);
     // private Vector3 upL = new Vector3(0, 0, 9);
     // private Vector3 upR = new Vector3(0, 0, 9);
     // private Vector3 downL = new Vector3(0, 0, 9);
@@ -93,5 +93,12 @@ public class AimCalculator : MonoBehaviour
         print("Disp pos : " + accuracyPoint);
         gameObject.transform.localScale = new Vector3(xScale, yScale, 0.1f);
         gameObject.transform.localPosition = accuracyPoint;
+    }
+
+    private float Angle(Vector2 vec1, Vector2 vec2)
+    {
+        Vector2 diference = vec2 - vec1;
+        float sign = (vec2.y < vec1.y) ? -1.0f : 1.0f;
+        return Vector2.Angle(Vector2.right, diference) * sign;
     }
 }

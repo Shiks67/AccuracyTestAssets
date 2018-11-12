@@ -22,7 +22,6 @@ public class CircleLife : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ColorLevel();
         //if there is more than 1 circle, return
         if (SpawnCircle.targetCircle.Count > 1)
             return;
@@ -38,23 +37,6 @@ public class CircleLife : MonoBehaviour
             Destroy(gameObject);
             GazeMarker.oldListDotMark.AddRange(GazeMarker.listDotMark);
             GazeMarker.listDotMark.Clear();
-        }
-    }
-
-    //Change the color of the circle compared to his size
-    private void ColorLevel()
-    {
-        if (gameObject.transform.localScale.x > 20)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
-        }
-        else if (gameObject.transform.localScale.x > 10)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.blue;
-        }
-        else if (gameObject.transform.localScale.x > 0)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
     }
 }

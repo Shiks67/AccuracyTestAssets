@@ -5,7 +5,7 @@ using UnityEngine;
 public class GazeMarker : MonoBehaviour
 {
 
-    public GameObject GazeDotMap;
+    public GameObject gazeDotMap;
     public GameObject backgroundCollider;
     public GameObject dotMark;
     public static List<GameObject> listDotMark = new List<GameObject>();
@@ -49,7 +49,7 @@ public class GazeMarker : MonoBehaviour
             {
                 GameObject newObject = Instantiate(dotMark);
                 //set parent so the dots stay at the same place on the grid
-                newObject.transform.SetParent(GazeDotMap.transform);
+                newObject.transform.SetParent(gazeDotMap.transform);
                 //position from the hit.point on the background
                 newObject.transform.position = pos;
                 newObject.GetComponent<Renderer>().material.color = Color.black;

@@ -7,16 +7,20 @@ public class ColorSwitch : MonoBehaviour
 
     private float timer = 0.25f;
     private float waitTime = 0;
+    private Transform oldParent;
 
     // Use this for initialization
     void Start()
     {
-
+        oldParent = gameObject.transform.parent;
+        gameObject.transform.SetParent((gameObject.transform.parent).transform.parent);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (oldParent == null)
+            Destroy(gameObject);
         //switch the color of the trigger
         waitTime += Time.deltaTime;
         if (waitTime < timer)

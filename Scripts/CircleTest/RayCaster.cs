@@ -9,13 +9,13 @@ public class RayCaster : MonoBehaviour
     public bool _3D = false;
     //public Transform marker;
     // private CalibrationDemo calibrationDemo;
-    public Vector3 gazeLoc;
+    private Vector3 gazeLoc;
     public Ray ray;
     private Camera mainCamera;
     Vector2 gazePointCenter;
-    public Vector3 viewportPoint;
+    private Vector3 viewportPoint;
     private LineRenderer heading;
-    public RaycastHit hit;
+    private RaycastHit hit;
 
     // Use this for initialization
     void Start()

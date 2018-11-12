@@ -9,9 +9,9 @@ public class SpawnCircle : MonoBehaviour
 
     public GameObject spawnObject;
     private Vector3[] spawnArea =
-    {new Vector3(-30f,30f,-0.1f), new Vector3(0f,30f,-0.1f), new Vector3(30f,30f,-0.1f),
-    new Vector3(-30f,0f,-0.1f), new Vector3(0f,0f,-0.1f), new Vector3(30f,0f,-0.1f),
-    new Vector3(-30f,-30f,-0.1f), new Vector3(0f,-30f,-0.1f), new Vector3(30f,-30f,-0.1f)};
+    {new Vector3(-30f,30f,-0.05f), new Vector3(0f,30f,-0.05f), new Vector3(30f,30f,-0.05f),
+    new Vector3(-30f,0f,-0.05f), new Vector3(0f,0f,-0.05f), new Vector3(30f,0f,-0.05f),
+    new Vector3(-30f,-30f,-0.05f), new Vector3(0f,-30f,-0.05f), new Vector3(30f,-30f,-0.05f)};
 
     public static float[] circleFinalSize = { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
     private bool[] isVisited = new bool[9];
