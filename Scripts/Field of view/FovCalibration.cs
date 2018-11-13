@@ -10,7 +10,7 @@ public class FovCalibration : MonoBehaviour
     public GameObject UpRight;
     public GameObject DownLeft;
     public GameObject DownRight;
-    private RayCastF rCaster;
+    private RayCaster rCaster;
     private int speed = 5;
     public List<Text> verticalTextList = new List<Text>();
     public List<Text> horizontalTextList = new List<Text>();
@@ -18,8 +18,8 @@ public class FovCalibration : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
-        // rCaster = Camera.main.GetComponent<RayCaster>();
+        // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
+        rCaster = Camera.main.GetComponent<RayCaster>();
     }
 
     // Update is called once per frame
