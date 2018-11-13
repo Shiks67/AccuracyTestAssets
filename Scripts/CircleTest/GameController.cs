@@ -10,16 +10,14 @@ public class GameController : MonoBehaviour
     private RayCaster rCaster;
     private RaycastHit hit;
     // private GameObject mainCamera;
-    private SpawnCircle sc;
     private bool dotMarkVisibility;
+    public GameObject menu;
 
     // Use this for initialization
     void Start()
     {
         // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
         rCaster = Camera.main.GetComponent<RayCaster>();
-        var spawnCircle = GameObject.Find("Quadri");
-        sc = spawnCircle.GetComponent<SpawnCircle>();
         // SceneManager.UnloadSceneAsync("CircleTest 1");
     }
 
@@ -39,39 +37,21 @@ public class GameController : MonoBehaviour
                 dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
             }
         }
+        if (Input.GetKeyUp(KeyCode.M))
+            menu.SetActive(!menu.activeSelf);
+
         if (Physics.Raycast(rCaster.ray, out hit))
         {
             //if there is max 1 circle on the grid
             if (SpawnCircle.targetCircle.Count == 1)
             {
-                //Switch on hitted object's tag by the gaze
-                switch (hit.transform.gameObject.tag)
+                if (hit.transform.gameObject.tag == "hitCircle")
                 {
-                    case "hitCircle": //if the tag is hitCircle, reduce the size of the circle
-                        ReduceCircle(hit.transform.gameObject);
-                        break;
-                    case "Finish": //show the result, size of every circle
-                        sc.Result();
-                        break;
-                    case "Respawn": //reset all circles so we can try again
-                        sc.DestroyAllCircles(true);
-                        break;
-                    default: //by default we extend the size of the circle
-                        ExtendCircle(SpawnCircle.targetCircle.First());
-                        return;
+                    ReduceCircle(hit.transform.gameObject);
                 }
-            }
-            else
-            {
-                //after Retry button is focused
-                if (hit.transform.gameObject.tag == "Respawn")
+                else
                 {
-                    sc.DestroyAllCircles(true);
-                }
-                //after Resume button is focused
-                if (hit.transform.gameObject.tag == "Resume")
-                {
-                    sc.DestroyAllCircles();
+                    ExtendCircle(SpawnCircle.targetCircle.First());
                 }
             }
         }

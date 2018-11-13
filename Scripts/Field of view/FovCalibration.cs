@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class FovCalibration : MonoBehaviour
@@ -11,6 +12,8 @@ public class FovCalibration : MonoBehaviour
     public GameObject DownRight;
     private RayCastF rCaster;
     private int speed = 5;
+    public List<Text> verticalTextList = new List<Text>();
+    public List<Text> horizontalTextList = new List<Text>();
 
     // Use this for initialization
     void Start()
@@ -22,6 +25,8 @@ public class FovCalibration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.O))
+            RandomizeText();
         RaycastHit hit;
         if (Physics.Raycast(rCaster.ray, out hit))
         {
@@ -67,6 +72,29 @@ public class FovCalibration : MonoBehaviour
                 hit.transform.parent.localPosition = new Vector3(hit.transform.parent.localPosition.x,
                     hit.transform.parent.localPosition.y - speed * Time.deltaTime, hit.transform.parent.localPosition.z);
             }
+        }
+    }
+    private string randomText = "";
+
+    private void RandomizeText()
+    {
+        foreach (var htext in horizontalTextList)
+        {
+            for (int i = 0; i < 11; i++)
+            {
+                randomText += (char)Random.Range(65, 91) + " ";
+            }
+            htext.text = randomText;
+            randomText = "";
+        }
+        foreach (var vtext in verticalTextList)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                randomText += (char)Random.Range(65, 91) + "\n";
+            }
+            vtext.text = randomText;
+            randomText = "";
         }
     }
 }
