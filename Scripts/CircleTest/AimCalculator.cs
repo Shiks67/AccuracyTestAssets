@@ -29,16 +29,13 @@ public class AimCalculator : MonoBehaviour
             return;
         }
         gameObject.GetComponent<Image>().enabled = true;
-        print("before for : ");
         for (int i = 0; i < 10; i++)
         {
             lastDots[i] = GazeMarker.listDotMark
             [(GazeMarker.listDotMark.Count - 10) + i];
         }
-        print("after for : ");
         accuracyPoint.x = lastDots.Average(item => item.gameObject.transform.localPosition.x);
         accuracyPoint.y = lastDots.Average(item => item.gameObject.transform.localPosition.y);
-        print("AccuPoint : " + accuracyPoint);
 
         // upL.x = lastDots.Min(item => item.gameObject.transform.localPosition.x);
         // upL.y = lastDots.Max(item => item.gameObject.transform.localPosition.y);
@@ -88,9 +85,6 @@ public class AimCalculator : MonoBehaviour
         {
             yScale = (lastDots.Min(item => item.gameObject.transform.localPosition.y) * -1) - midY;
         }
-
-        print("Dispersion : " + xScale + " ;; " + yScale);
-        print("Disp pos : " + accuracyPoint);
         gameObject.transform.localScale = new Vector3(xScale, yScale, 0.1f);
         gameObject.transform.localPosition = accuracyPoint;
     }

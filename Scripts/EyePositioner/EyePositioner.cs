@@ -54,7 +54,6 @@ public class EyePositioner : MonoBehaviour
                         break;
                     case "norm_pos":
                         var positionForKey = PupilTools.VectorFromDictionary(dictionary, item.Key);
-                        // print("norm_pos_x : " + positionForKey.x + " / norm_pos_y : " + positionForKey.y);
                         if (positionForKey.x != 0 && positionForKey.y != 1 && leftPupil != null)
                         {
                             positionForKey.x -= 0.5f;
@@ -112,7 +111,6 @@ public class EyePositioner : MonoBehaviour
                         break;
                     case "norm_pos":
                         var positionForKey = PupilTools.VectorFromDictionary(dictionary, item.Key);
-                        // print("norm_pos_x : " + positionForKey.x + " / norm_pos_y : " + positionForKey.y);
                         if (positionForKey.x != 0 && positionForKey.y != 1 && rightPupil != null)
                         {
                             positionForKey.x -= 0.5f;
