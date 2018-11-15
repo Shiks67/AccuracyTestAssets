@@ -266,7 +266,8 @@ public class Heatmap : MonoBehaviour
 
             if (hitObject.name == "BackgroundCollider")
             {
-				hit.point = new Vector3(hit.point.x,hit.point.y,hit.point.z - 0.1f);
+				// hit.point = new Vector3(hit.point.x,hit.point.y,hit.point.z - 0.1f);
+                hit.point = transform.InverseTransformPoint(hit.point);
                 if (mode == HeatmapMode.ParticleDebug)
                     Add(hit.point);
                 else
