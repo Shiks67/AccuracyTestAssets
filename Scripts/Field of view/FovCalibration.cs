@@ -27,6 +27,11 @@ public class FovCalibration : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.O))
             RandomizeText();
+        if (Input.GetKeyUp(KeyCode.P))
+            ExtendTextSize();
+        if (Input.GetKeyUp(KeyCode.M))
+            ReduceTextSize();
+
         RaycastHit hit;
         if (Physics.Raycast(rCaster.ray, out hit))
         {
@@ -80,7 +85,7 @@ public class FovCalibration : MonoBehaviour
     {
         foreach (var htext in horizontalTextList)
         {
-            for (int i = 0; i < 11; i++)
+            for (int i = 0; i < 5; i++)
             {
                 randomText += (char)Random.Range(65, 91) + " ";
             }
@@ -89,12 +94,46 @@ public class FovCalibration : MonoBehaviour
         }
         foreach (var vtext in verticalTextList)
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 5; i++)
             {
                 randomText += (char)Random.Range(65, 91) + "\n";
             }
             vtext.text = randomText;
             randomText = "";
+        }
+    }
+
+    private void ExtendTextSize()
+    {
+        foreach (var htext in horizontalTextList)
+        {
+            htext.transform.localScale = new Vector3(htext.transform.localScale.x + 0.1f,
+            htext.transform.localScale.y + 0.1f, 
+            htext.transform.localScale.z + 0.1f);
+        }
+        foreach (var vtext in verticalTextList)
+        {
+            vtext.transform.localScale = new Vector3(vtext.transform.localScale.x + 0.1f,
+            vtext.transform.localScale.y + 0.1f, 
+            vtext.transform.localScale.z + 0.1f);
+        }
+    }
+
+    private void ReduceTextSize()
+    {
+        foreach (var htext in horizontalTextList)
+        {
+            if (htext.transform.localScale.x > 0)
+                htext.transform.localScale = new Vector3(htext.transform.localScale.x - 0.1f,
+            htext.transform.localScale.y - 0.1f, 
+            htext.transform.localScale.z - 0.1f);
+        }
+        foreach (var vtext in verticalTextList)
+        {
+            if (vtext.transform.localScale.x > 0)
+                vtext.transform.localScale = new Vector3(vtext.transform.localScale.x - 0.1f,
+            vtext.transform.localScale.y - 0.1f, 
+            vtext.transform.localScale.z - 0.1f);
         }
     }
 }
