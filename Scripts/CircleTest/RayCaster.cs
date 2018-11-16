@@ -15,7 +15,7 @@ public class RayCaster : MonoBehaviour
     Vector2 gazePointCenter;
     private Vector3 viewportPoint;
     private LineRenderer heading;
-    private RaycastHit hit;
+    public static RaycastHit hit;
 
     // Use this for initialization
     void Start()
@@ -58,6 +58,7 @@ public class RayCaster : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             heading.SetPosition(1, hit.point);
+            hit.point = transform.InverseTransformPoint(hit.point);
         }
         else
         {

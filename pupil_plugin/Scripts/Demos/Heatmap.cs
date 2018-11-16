@@ -255,26 +255,28 @@ public class Heatmap : MonoBehaviour
         // }
 
         /*************************** My rayCast which add the heatmap points ****************************/
-        GameObject hitObject;
-        RaycastHit[] hits;
+        // // // GameObject hitObject;
+        // // // RaycastHit[] hits;
 
-        hits = Physics.RaycastAll(rCaster.ray);
-        for (int i = 0; i < hits.Length; i++)
-        {
-            RaycastHit hit = hits[i];
-            hitObject = hit.collider.gameObject;
+        // // // hits = Physics.RaycastAll(rCaster.ray);
+        // // // for (int i = 0; i < hits.Length; i++)
+        // // // {
+        // // //     RaycastHit hit = hits[i];
+        // // //     hitObject = hit.collider.gameObject;
 
-            if (hitObject.name == "BackgroundCollider")
-            {
-				// hit.point = new Vector3(hit.point.x,hit.point.y,hit.point.z - 0.1f);
-                hit.point = transform.InverseTransformPoint(hit.point);
-                if (mode == HeatmapMode.ParticleDebug)
-                    Add(hit.point);
-                else
-                    Add(RenderingMeshFilter.transform.localToWorldMatrix.MultiplyPoint3x4(PositionForUV(Vector2.one - hit.textureCoord) - Vector3.forward * 0.001f));
-            }
+        // // //     if (hitObject.name == "Quadri")
+        // // //     {
+        // // //         // hit.point = new Vector3(hit.point.x,hit.point.y,hit.point.z - 0.1f);
+        // // //         hit.point = transform.InverseTransformPoint(hit.point);
+        // // //         if (mode == HeatmapMode.ParticleDebug)
+        // // //             Add(hit.point);
+        // // //         else
+        // // //             Add(RenderingMeshFilter.transform.localToWorldMatrix.MultiplyPoint3x4(PositionForUV(Vector2.one - hit.textureCoord) - Vector3.forward * 0.001f));
+        // // //     }
 
-        }
+        // // // }
+
+        Add(new Vector3(RayCastF.hitF.point.x, RayCastF.hitF.point.y, 0f));
         /*************************** My rayCast which add the heatmap points ****************************/
 
 

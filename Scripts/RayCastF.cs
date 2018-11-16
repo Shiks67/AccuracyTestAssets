@@ -8,6 +8,8 @@ public class RayCastF : MonoBehaviour
     private Transform myCamera;
     public Ray ray;
     private LineRenderer heading;
+
+    public static RaycastHit hitF;
     // Use this for initialization
     void Start()
     {
@@ -29,6 +31,10 @@ public class RayCastF : MonoBehaviour
         
         ray = new Ray(myCamera.position,
         myCamera.rotation * Vector3.forward * 15);
+        if (Physics.Raycast(ray, out hitF))
+        {
+            hitF.point = transform.InverseTransformPoint(hitF.point);
+        }
         Debug.DrawRay(myCamera.position,
         myCamera.rotation * Vector3.forward * 15, Color.red);
 
