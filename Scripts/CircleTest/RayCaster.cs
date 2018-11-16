@@ -57,6 +57,7 @@ public class RayCaster : MonoBehaviour
         }
         heading.SetPosition(0, mainCamera.transform.position - mainCamera.transform.up);
         ray = mainCamera.ViewportPointToRay(viewportPoint);
+
         GazePosUpdate();
         
         if (Physics.Raycast(ray, out hit))
@@ -86,7 +87,7 @@ public class RayCaster : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform.name == "Quadri")
             {
-                gazePosObj.transform.localPosition = transform.InverseTransformPoint(hit.point); ;
+                gazePosObj.transform.localPosition = transform.InverseTransformPoint(hit.point);
                 print(gazePosObj.transform.localPosition);
             }
         }

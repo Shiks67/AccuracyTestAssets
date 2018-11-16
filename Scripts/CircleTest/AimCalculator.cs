@@ -28,15 +28,8 @@ public class AimCalculator : MonoBehaviour
             gameObject.GetComponent<Image>().enabled = false;
             return;
         }
-        gameObject.GetComponent<Image>().enabled = true;
-        for (int i = 0; i < 10; i++)
-        {
-            lastDots[i] = GazeMarker.listDotMark
-            [(GazeMarker.listDotMark.Count - 10) + i];
-        }
-        accuracyPoint.x = lastDots.Average(item => item.gameObject.transform.localPosition.x);
-        accuracyPoint.y = lastDots.Average(item => item.gameObject.transform.localPosition.y);
 
+        UpdateAccuracy();
         // upL.x = lastDots.Min(item => item.gameObject.transform.localPosition.x);
         // upL.y = lastDots.Max(item => item.gameObject.transform.localPosition.y);
 
@@ -48,8 +41,19 @@ public class AimCalculator : MonoBehaviour
 
         // downR.x = lastDots.Max(item => item.gameObject.transform.localPosition.x);
         // downR.y = lastDots.Min(item => item.gameObject.transform.localPosition.y);
-
         updateDispersionZone();
+    }
+
+    private void UpdateAccuracy()
+    {
+        gameObject.GetComponent<Image>().enabled = true;
+        for (int i = 0; i < 10; i++)
+        {
+            lastDots[i] = GazeMarker.listDotMark
+            [(GazeMarker.listDotMark.Count - 10) + i];
+        }
+        accuracyPoint.x = lastDots.Average(item => item.gameObject.transform.localPosition.x);
+        accuracyPoint.y = lastDots.Average(item => item.gameObject.transform.localPosition.y);
     }
 
     private void updateDispersionZone()

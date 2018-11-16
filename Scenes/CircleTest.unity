@@ -1039,7 +1039,7 @@ RectTransform:
   m_GameObject: {fileID: 580897369}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 9}
-  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1518820615}
   m_RootOrder: 1
@@ -1846,7 +1846,7 @@ Prefab:
     - target: {fileID: 23841648016575344, guid: e3914e4d7d486584ba9da6442762ea46,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4885352125407384, guid: e3914e4d7d486584ba9da6442762ea46, type: 2}
       propertyPath: m_LocalScale.x
@@ -1888,7 +1888,7 @@ Prefab:
         type: 2}
       propertyPath: GazeDotMap
       value: 
-      objectReference: {fileID: 580897369}
+      objectReference: {fileID: 0}
     - target: {fileID: 114418135297560772, guid: e3914e4d7d486584ba9da6442762ea46,
         type: 2}
       propertyPath: gazeDotMap
@@ -1897,7 +1897,7 @@ Prefab:
     - target: {fileID: 114418135297560772, guid: e3914e4d7d486584ba9da6442762ea46,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3914e4d7d486584ba9da6442762ea46, type: 2}
@@ -2495,7 +2495,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1295346933584772, guid: 20acf7dd93e0bfd4899bb7146097c4d7, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20acf7dd93e0bfd4899bb7146097c4d7, type: 2}
