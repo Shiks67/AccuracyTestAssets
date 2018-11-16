@@ -24,17 +24,19 @@ public class GazeMarker : MonoBehaviour
     {
         // GameObject hitObject;
         // RaycastHit[] hits;
-        gameObject.transform.localPosition = new Vector3
-        (RayCastF.hitF.point.x, RayCastF.hitF.point.y, 9f);
-        print(gameObject.transform.localPosition);
+
         // //everything that the raycast hit
         // hits = Physics.RaycastAll(rCaster.ray);
-        // for (int i = 0; i < hits.Length; i++)
+        // for (int i = 0; i < RayCaster.hits.Length; i++)
         // {
-        //     RaycastHit hit = hits[i];
-        //     hitObject = hit.collider.gameObject;
+        //     RaycastHit hit = RayCaster.hits[i];
+        //     // hitObject = hit.collider.gameObject;
         //     timer -= Time.deltaTime;
-
+        //     if (hit.transform.name == "Quadri")
+        //     {
+        //         gameObject.transform.localPosition = transform.InverseTransformPoint(hit.point); ;
+        //         print(gameObject.transform.localPosition);
+        //     }
         //     //only move the gazeMarker on the background's collider
         //     //avoid the cylinder's collider which is a capsule and get smaller 
         //     //which make the gazemarker move

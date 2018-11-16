@@ -28,11 +28,9 @@ public class Heatmap : MonoBehaviour
     Camera cam;
     public Camera RenderingCamera;
     public Camera MaskingCamera;
-    private RayCaster rCaster;
     // Use this for initialization
     void OnEnable()
     {
-        rCaster = Camera.main.GetComponent<RayCaster>();
         if (PupilTools.IsConnected)
         {
             PupilTools.IsGazing = true;
@@ -228,57 +226,23 @@ public class Heatmap : MonoBehaviour
     {
         transform.eulerAngles = Vector3.zero;
 
-        // if (PupilTools.IsConnected && PupilTools.IsGazing)
-        // {
-        //     Vector2 gazePosition = PupilData._2D.GazePosition;
+        if (PupilTools.IsConnected && PupilTools.IsGazing)
+        {
+            Vector2 gazePosition = PupilData._2D.GazePosition;
 
-        //     RaycastHit hit;
-        //     //			if (Input.GetMouseButton(0) && Physics.Raycast(cam.ScreenPointToRay (Input.mousePosition), out hit, 1f, (int) collisionLayer))
-        //     if (Physics.Raycast(cam.ViewportPointToRay(gazePosition), out hit, 1f, (int)collisionLayer))
-        //     {
-        //         if (hit.collider.gameObject != gameObject)
-        //             return;
+            RaycastHit hit;
+            //			if (Input.GetMouseButton(0) && Physics.Raycast(cam.ScreenPointToRay (Input.mousePosition), out hit, 1f, (int) collisionLayer))
+            if (Physics.Raycast(cam.ViewportPointToRay(gazePosition), out hit, 1f, (int)collisionLayer))
+            {
+                if (hit.collider.gameObject != gameObject)
+                    return;
 
-        //         if (mode == HeatmapMode.ParticleDebug)
-        //             Add(hit.point);
-        //         else
-        //             Add(RenderingMeshFilter.transform.localToWorldMatrix.MultiplyPoint3x4(PositionForUV(Vector2.one - hit.textureCoord) - Vector3.forward * 0.001f));
-        //     }
-
-        //     if (Physics.Raycast(rCaster.ray, out hit))
-        //     {
-        //         if (mode == HeatmapMode.ParticleDebug)
-        //             Add(hit.point);
-        //         else
-        //             Add(RenderingMeshFilter.transform.localToWorldMatrix.MultiplyPoint3x4(PositionForUV(Vector2.one - hit.textureCoord) - Vector3.forward * 0.001f));
-        //     }
-        // }
-
-        /*************************** My rayCast which add the heatmap points ****************************/
-        // // // GameObject hitObject;
-        // // // RaycastHit[] hits;
-
-        // // // hits = Physics.RaycastAll(rCaster.ray);
-        // // // for (int i = 0; i < hits.Length; i++)
-        // // // {
-        // // //     RaycastHit hit = hits[i];
-        // // //     hitObject = hit.collider.gameObject;
-
-        // // //     if (hitObject.name == "Quadri")
-        // // //     {
-        // // //         // hit.point = new Vector3(hit.point.x,hit.point.y,hit.point.z - 0.1f);
-        // // //         hit.point = transform.InverseTransformPoint(hit.point);
-        // // //         if (mode == HeatmapMode.ParticleDebug)
-        // // //             Add(hit.point);
-        // // //         else
-        // // //             Add(RenderingMeshFilter.transform.localToWorldMatrix.MultiplyPoint3x4(PositionForUV(Vector2.one - hit.textureCoord) - Vector3.forward * 0.001f));
-        // // //     }
-
-        // // // }
-
-        Add(new Vector3(RayCastF.hitF.point.x, RayCastF.hitF.point.y, 0f));
-        /*************************** My rayCast which add the heatmap points ****************************/
-
+                if (mode == HeatmapMode.ParticleDebug)
+                    Add(hit.point);
+                else
+                    Add(RenderingMeshFilter.transform.localToWorldMatrix.MultiplyPoint3x4(PositionForUV(Vector2.one - hit.textureCoord) - Vector3.forward * 0.001f));
+            }
+        }
 
         if (renderingMaterial != null)
             cam.RenderToCubemap(Cubemap);

@@ -44,6 +44,8 @@ public class RayCaster : MonoBehaviour
             ray2D();
     }
 
+    private RaycastHit[] hits;
+    public GameObject gazePosObj;
     private void ray2D()
     {
         viewportPoint = new Vector3(0.5f, 0.5f, 10);
@@ -55,6 +57,8 @@ public class RayCaster : MonoBehaviour
         }
         heading.SetPosition(0, mainCamera.transform.position - mainCamera.transform.up);
         ray = mainCamera.ViewportPointToRay(viewportPoint);
+        GazePosUpdate();
+        
         if (Physics.Raycast(ray, out hit))
         {
             heading.SetPosition(1, hit.point);
@@ -72,5 +76,19 @@ public class RayCaster : MonoBehaviour
         //marker.localPosition = PupilData._3D.GazePosition;
         ray = new Ray(mainCamera.transform.position, mainCamera.transform.rotation * gazeLoc * 10);
         Debug.DrawRay(mainCamera.transform.position, mainCamera.transform.rotation * gazeLoc * 10);
+    }
+
+    void GazePosUpdate()
+    {
+        hits = Physics.RaycastAll(ray);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+            if (hit.transform.name == "Quadri")
+            {
+                gazePosObj.transform.localPosition = transform.InverseTransformPoint(hit.point); ;
+                print(gazePosObj.transform.localPosition);
+            }
+        }
     }
 }
