@@ -98,15 +98,15 @@ public class SpawnCircle : MonoBehaviour
     {
         if (retry)
         {
-            foreach (var obj in GazeMarker.listDotMark)
-            {
-                Destroy(obj);
-            }
-            foreach (var objList in GazeMarker.oldListDotMark)
-            {
-                foreach (var obj in objList)
-                { Destroy(obj); }
-            }
+            // foreach (var obj in GazeMarker.listDotMark)
+            // {
+            //     Destroy(obj);
+            // }
+            // foreach (var objList in GazeMarker.oldListDotMark)
+            // {
+            //     foreach (var obj in objList)
+            //     { Destroy(obj); }
+            // }
             circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
             SpawnCircle.finalGazePos = new Vector3[9];
             GazeMarker.listDotMark.Clear();
