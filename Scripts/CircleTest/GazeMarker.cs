@@ -31,7 +31,7 @@ public class GazeMarker : MonoBehaviour
         {
             RaycastHit hit = hits[i];
             hitObject = hit.collider.gameObject;
-            pos = gameObject.transform.localPosition;
+            pos = gameObject.transform.position;
 
             // if a circle is hitted and the timer is at 0
             // create a dot at the position on the background's collider
@@ -41,7 +41,7 @@ public class GazeMarker : MonoBehaviour
                 GameObject newObject = Instantiate(dotMark);
                 //set parent so the dots stay at the same place on the grid
                 //position from the hit.point on the background
-                newObject.transform.localPosition = pos;
+                newObject.transform.position = pos;
                 newObject.transform.SetParent(gazeDotMap.transform);
                 newObject.GetComponent<Renderer>().material.color = Color.black;
                 listDotMark.Add(newObject);

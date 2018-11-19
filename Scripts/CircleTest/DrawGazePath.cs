@@ -12,23 +12,25 @@ public class DrawGazePath : MonoBehaviour
     void Start()
     {
         line = gameObject.AddComponent<LineRenderer>();
+        line.useWorldSpace = false;
         SetupLine();
     }
 
     // Update is called once per frame
     void Update()
     {
-        AddLinePoint(GazeMarker.transform.localPosition);
+        AddLinePoint(GazeMarker.transform.position);
     }
 
     void SetupLine()
     {
         line.sortingLayerName = "OnTop";
         line.sortingOrder = 5;
-        line.SetPosition(0, GazeMarker.transform.localPosition);
-        line.SetWidth(0.5f, 0.5f);
+        line.SetPosition(0, GazeMarker.transform.position);
+        line.SetWidth(0.2f, 0.2f);
         line.useWorldSpace = true;
         line.material.color = Color.black;
+        line.useWorldSpace = false;
     }
 
     void AddLinePoint(Vector3 newPoint)

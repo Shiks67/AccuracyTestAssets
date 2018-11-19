@@ -87,7 +87,7 @@ public class RayCaster : MonoBehaviour
             RaycastHit hit = hits[i];
             if (hit.transform.name == "Quadri")
             {
-                gazePosObj.transform.localPosition = transform.InverseTransformPoint(hit.point);
+                gazePosObj.transform.position = hit.point;
                 // print(gazePosObj.transform.localPosition);
             }
         }
