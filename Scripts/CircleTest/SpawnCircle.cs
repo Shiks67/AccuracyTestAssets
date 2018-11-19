@@ -91,7 +91,7 @@ public class SpawnCircle : MonoBehaviour
         }
     }
 
-    ///<summary> Destroy every GameObject tagged "hitCircle"
+    ///<summary> Destroy every GameObject target
     ///<typeparam name="Retry">if true the size and visited positions are reseted</typeparam>
     ///</summary>
     public void DestroyAllCircles(bool retry = false)

@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
             //if there is max 1 circle on the grid
             if (SpawnCircle.targetCircle.Count == 1)
             {
-                if (hit.transform.gameObject.tag == "hitCircle")
+                if (SpawnCircle.targetCircle.Contains(hit.transform.gameObject))
                 {
                     ReduceCircle(hit.transform.gameObject);
                 }
