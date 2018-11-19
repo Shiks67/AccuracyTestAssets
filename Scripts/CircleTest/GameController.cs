@@ -32,9 +32,12 @@ public class GameController : MonoBehaviour
             {
                 dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
             }
-            foreach (var dot in GazeMarker.oldListDotMark)
+            foreach (var dotList in GazeMarker.oldListDotMark)
             {
-                dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
+                foreach (var dot in dotList)
+                {
+                    dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
+                }
             }
         }
         if (Input.GetKeyUp(KeyCode.M))

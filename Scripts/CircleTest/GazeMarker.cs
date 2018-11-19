@@ -8,7 +8,7 @@ public class GazeMarker : MonoBehaviour
     public GameObject gazeDotMap;
     public GameObject dotMark;
     public static List<GameObject> listDotMark = new List<GameObject>();
-    public static List<GameObject> oldListDotMark = new List<GameObject>();
+    public static List<List<GameObject>> oldListDotMark = new List<List<GameObject>>();
     private RayCaster rCaster;
     private Vector3 pos;
 
@@ -23,6 +23,7 @@ public class GazeMarker : MonoBehaviour
     {
         GameObject hitObject;
         RaycastHit[] hits;
+        print(gameObject.transform.localPosition);
 
         // everything that the raycast hit
         hits = Physics.RaycastAll(rCaster.ray);

@@ -14,6 +14,7 @@ public class SpawnCircle : MonoBehaviour
     new Vector3(-30f,-30f,-0.05f), new Vector3(0f,-30f,-0.05f), new Vector3(30f,-30f,-0.05f)};
 
     public static float[] circleFinalSize = { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+    public static Vector3[] finalGazePos = new Vector3[9];
     private bool[] isVisited = new bool[9];
 
     private int index;
@@ -101,11 +102,13 @@ public class SpawnCircle : MonoBehaviour
             {
                 Destroy(obj);
             }
-            foreach (var obj in GazeMarker.oldListDotMark)
+            foreach (var objList in GazeMarker.oldListDotMark)
             {
-                Destroy(obj);
+                foreach (var obj in objList)
+                { Destroy(obj); }
             }
             circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+            SpawnCircle.finalGazePos = new Vector3[9];
             GazeMarker.listDotMark.Clear();
             GazeMarker.oldListDotMark.Clear();
             isVisited = new bool[9];
