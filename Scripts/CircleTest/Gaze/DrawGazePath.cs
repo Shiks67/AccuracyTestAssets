@@ -7,7 +7,6 @@ public class DrawGazePath : MonoBehaviour
 {
 
     // Use this for initialization
-    public GameObject gazePosition;
     private LineRenderer line;
     private Vector3 lastPos;
     private List<Vector3> currentLinePoints = new List<Vector3>();
@@ -20,9 +19,15 @@ public class DrawGazePath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastPos != GazeMarker.listDotMark.Last())
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            lastPos = GazeMarker.listDotMark.Last();
+            GazeMarker.oldGazePath.Add(new List<Vector3>(currentLinePoints));
+            currentLinePoints.Clear();
+            line.positionCount = 0;
+        }
+        if (lastPos != GazeMarker.gazePath.Last() && SpawnCircle.targetCircle.Count == 1)
+        {
+            lastPos = GazeMarker.gazePath.Last();
             AddLinePoint(lastPos);
         }
     }
@@ -36,7 +41,7 @@ public class DrawGazePath : MonoBehaviour
         line.useWorldSpace = false;
         line.sortingLayerName = "UIdata";
         line.sortingOrder = 5;
-        line.SetPosition(0, GazeMarker.listDotMark.Last());
+        line.SetPosition(0, GazeMarker.gazePath.Last());
     }
 
     void AddLinePoint(Vector3 lastPos)

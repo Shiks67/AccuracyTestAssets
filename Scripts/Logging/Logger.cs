@@ -1,18 +1,34 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System;
 using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 public class Logger
 {
     #region Fields
     private static Logger _instance;
 
+    private string userID = PlayerPrefs.GetString("UserID");
     public string FolderName = DateTime.Now.ToString("MM-dd-yy");
     public string FileName = DateTime.Now.ToString("hh-mm-ss"); // + LoggerBehavior.sceneName;
+
+    private List<string> nonUsableChar = new List<string>() { "\\", "/", ":", "*", "?", "<", ">", "|" };
 
     #endregion
 
     #region Properties
 
+    void Start()
+    {
+        if (nonUsableChar.Any(this.userID.Contains))
+        {
+            this.userID = Regex.Replace(this.userID, "[\\/:*?<>|\\]", ".");
+        }
+    }
 
     public string FullPathLogDir
     {
@@ -21,7 +37,7 @@ public class Logger
 
     public string FullPathLogFile
     {
-        get { return AppConstants.DefaultEyeTrackingFolder + "\\" + FolderName + "\\" + FileName + ".csv"; }
+        get { return AppConstants.DefaultEyeTrackingFolder + "\\" + FolderName + "\\" + FileName + "_id-" + userID + ".csv"; }
     }
 
     public static Logger Instance

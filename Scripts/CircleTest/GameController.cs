@@ -24,22 +24,6 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // //show/hide gaze dots
-        // if (Input.GetKeyUp(KeyCode.O))
-        // {
-        //     dotMarkVisibility = !dotMarkVisibility;
-        //     foreach (var dot in GazeMarker.listDotMark)
-        //     {
-        //         dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
-        //     }
-        //     foreach (var dotList in GazeMarker.oldListDotMark)
-        //     {
-        //         foreach (var dot in dotList)
-        //         {
-        //             dot.GetComponent<Renderer>().enabled = dotMarkVisibility;
-        //         }
-        //     }
-        // }
         if (Input.GetKeyUp(KeyCode.M))
             menu.SetActive(!menu.activeSelf);
 

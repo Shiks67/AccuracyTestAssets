@@ -33,15 +33,10 @@ public class CircleLife : MonoBehaviour
         {
             //save the circle's scale and destroy it
             SpawnCircle.circleFinalSize[index] = gameObject.transform.localScale.x;
-            SpawnCircle.finalGazePos[index] = GazeMarker.listDotMark.Last();
+            SpawnCircle.finalGazePos[index] = GazeMarker.gazePath.Last();
             SpawnCircle.targetCircle.Remove(gameObject);
             Destroy(gameObject);
-            // foreach(var dot in GazeMarker.listDotMark)
-            // {
-            //     Destroy(dot);
-            // }
-            GazeMarker.oldListDotMark.Add(GazeMarker.listDotMark);
-            GazeMarker.listDotMark.Clear();
+            GazeMarker.gazePath.Clear();
         }
     }
 }

@@ -19,7 +19,7 @@ public class AimCalculator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GazeMarker.listDotMark.Count <= 10)
+        if (GazeMarker.gazePath.Count <= 10)
         {
             gameObject.GetComponent<Image>().enabled = false;
             return;
@@ -35,8 +35,8 @@ public class AimCalculator : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            lastDots[i] = GazeMarker.listDotMark[(GazeMarker.listDotMark.Count - 10) + i];
-            print(GazeMarker.listDotMark[(GazeMarker.listDotMark.Count - 10) + i]);
+            lastDots[i] = GazeMarker.gazePath[(GazeMarker.gazePath.Count - 10) + i];
+            // print(GazeMarker.gazePath[(GazeMarker.gazePath.Count - 10) + i]);
         }
 
         accuracyPoint.x = lastDots.Average(item => item.x);
