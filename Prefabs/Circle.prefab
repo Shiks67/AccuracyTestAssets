@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33263351942417162}
   - component: {fileID: 23877276672726158}
   - component: {fileID: 136986793659954654}
+  - component: {fileID: 114742977947174352}
   - component: {fileID: 114320423944293830}
   m_Layer: 5
   m_Name: Circle
@@ -253,6 +254,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4d8b18247c2f674ead107c4c1f65098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114742977947174352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1039620438093140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c11caaac5737342a8600efeed4187d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHelper: {fileID: 1520963510883996, guid: f0d7c090b82f0654485b75b099bb91fd,
+    type: 2}
 --- !u!136 &136986793659954654
 CapsuleCollider:
   m_ObjectHideFlags: 1
