@@ -44,8 +44,10 @@ public class GameController : MonoBehaviour
             else
             {
                 if (Input.GetKeyUp(KeyCode.F))
+                {
                     StartCoroutine(LoadCurrentScene());
                     SceneManager.UnloadSceneAsync("CircleTest");
+                }
             }
         }
     }

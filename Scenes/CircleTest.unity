@@ -2020,7 +2020,7 @@ Prefab:
     - target: {fileID: 23841648016575344, guid: e3914e4d7d486584ba9da6442762ea46,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4885352125407384, guid: e3914e4d7d486584ba9da6442762ea46, type: 2}
       propertyPath: m_LocalScale.x
