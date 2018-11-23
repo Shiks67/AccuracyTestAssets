@@ -41,6 +41,23 @@ public class GameController : MonoBehaviour
                     ExtendCircle(SpawnCircle.targetCircle.First());
                 }
             }
+            else
+            {
+                if (Input.GetKeyUp(KeyCode.F))
+                    StartCoroutine(LoadCurrentScene());
+                    SceneManager.UnloadSceneAsync("CircleTest");
+            }
+        }
+    }
+
+    IEnumerator LoadCurrentScene()
+    {
+        AsyncOperation asyncScene = SceneManager.LoadSceneAsync("Field of view"
+            , LoadSceneMode.Additive);
+
+        while (!asyncScene.isDone)
+        {
+            yield return null;
         }
     }
 
