@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorSwitch : MonoBehaviour
+public class CrossController : MonoBehaviour
 {
 
     private float timer = 0.25f;
@@ -21,6 +21,10 @@ public class ColorSwitch : MonoBehaviour
     {
         if (oldParent == null)
             Destroy(gameObject);
+        if (oldParent.gameObject.activeSelf == false)
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+        else
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
         //switch the color of the trigger
         waitTime += Time.deltaTime;
         if (waitTime < timer)

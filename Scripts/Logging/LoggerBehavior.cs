@@ -67,13 +67,15 @@ namespace RockVR.Video.Demo
             if (PupilData._2D.GazePosition != Vector2.zero)
             {
                 gazeToWorld = dedicatedCapture.ViewportToWorldPoint(new Vector3
-                (PupilData._2D.GazePosition.x, PupilData._2D.GazePosition.y, 
+                (PupilData._2D.GazePosition.x, PupilData._2D.GazePosition.y,
                 Camera.main.nearClipPlane));
             }
 
             //var raycastHit = EyeRay.CurrentlyHit;
             var tmp = new
             {
+                aUserID = _logger.userID,
+                aDate = _logger.FolderName.Replace('-', '/') + " - " + _logger.FileName.Replace('-', ':'),
                 // default variables for all scenes
                 a = Math.Round(timer, 3),
                 fps = (int)(1.0f / Time.unscaledDeltaTime), //frames per second during the last frame, could calculate an average frame rate instead

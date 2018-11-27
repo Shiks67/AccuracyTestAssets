@@ -18,13 +18,16 @@ public class SpawnCircle : MonoBehaviour
     public static float[] circleFinalSize = { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
     public static Vector3[] finalGazePos = new Vector3[9];
     private bool[] isVisited = new bool[9];
+    public List<int> indexOrder = new List<int>();
+
+    public List<GameObject> goPathList = new List<GameObject>();
 
     private int index;
     public Text countObj;
     private float countDown = 3f;
 
     public static List<GameObject> targetCircle = new List<GameObject>();
-    private List<GameObject> gazeList = new List<GameObject>();
+    public List<GameObject> gazeList = new List<GameObject>();
 
     // Use this for initialization
     void Start()
@@ -56,6 +59,7 @@ public class SpawnCircle : MonoBehaviour
                     index = Random.Range(0, 9);
                 }
                 isVisited[index] = true;
+                indexOrder.Add(index);
                 newCircle(index);
             }
             else
@@ -69,7 +73,7 @@ public class SpawnCircle : MonoBehaviour
     /// Create a new circle with his id's informations 
     /// </summary>
     /// <param name="id">id of the circle in the array that contain all the positions</param>
-    private void newCircle(int id, bool result = false)
+    public void newCircle(int id, bool result = false)
     {
         GameObject newObject = Instantiate(spawnObject);
         newObject.transform.SetParent(gameObject.transform);
@@ -81,24 +85,31 @@ public class SpawnCircle : MonoBehaviour
 
         if (result)
         {
-            GameObject newGazePoint = Instantiate(gazeDot);
-            newGazePoint.transform.SetParent(gameObject.transform);
-            newGazePoint.transform.localPosition = finalGazePos[id];
-            gazeList.Add(newGazePoint);
-
-            var go = new GameObject();
-            go.transform.SetParent(gameObject.transform);
-            var lr = go.AddComponent<LineRenderer>();
-
-            lr.SetPosition(0, new Vector3(newObject.transform.position.x, newObject.transform.position.y, newGazePoint.transform.position.z));
-            lr.SetPosition(1, newGazePoint.transform.position);
-            lr.startWidth = 0.04f;
-            lr.endWidth = 0.04f;
-            lr.useWorldSpace = false;
+            ShowOffset(id, newObject.transform.position);
         }
     }
 
-    private void ShowPath()
+    private void ShowOffset(int id, Vector3 pos)
+    {
+        GameObject newGazePoint = Instantiate(gazeDot);
+        newGazePoint.transform.SetParent(gameObject.transform);
+        newGazePoint.transform.localPosition = finalGazePos[id];
+
+        var go = new GameObject();
+        go.transform.SetParent(gameObject.transform);
+        var lr = go.AddComponent<LineRenderer>();
+
+        lr.SetPosition(0, new Vector3(pos.x, pos.y, newGazePoint.transform.position.z));
+        lr.SetPosition(1, newGazePoint.transform.position);
+        lr.startWidth = 0.04f;
+        lr.endWidth = 0.04f;
+        lr.useWorldSpace = false;
+
+        newGazePoint.transform.SetParent(go.transform);
+
+        gazeList.Add(go);
+    }
+    private void ShowAllPath()
     {
         foreach (var path in GazeMarker.oldGazePath)
         {
@@ -120,6 +131,7 @@ public class SpawnCircle : MonoBehaviour
                 lr.SetPosition(positionToSet, pos);
                 positionToSet++;
             }
+            goPathList.Add(go);
         }
     }
 
@@ -133,7 +145,7 @@ public class SpawnCircle : MonoBehaviour
         {
             newCircle(i, true);
         }
-        ShowPath();
+        ShowAllPath();
     }
 
     ///<summary> Destroy every GameObject target
@@ -149,8 +161,6 @@ public class SpawnCircle : MonoBehaviour
         {
             Destroy(obj);
         }
-        if (!retry)
-            newCircle(index);
 
         if (retry)
         {
@@ -165,5 +175,10 @@ public class SpawnCircle : MonoBehaviour
             countObj.gameObject.SetActive(true);
             countDown = 3f;
         }
+    }
+
+    public void ResumeLastCircle()
+    {
+        newCircle(index);
     }
 }

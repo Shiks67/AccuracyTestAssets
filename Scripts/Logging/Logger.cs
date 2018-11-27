@@ -12,7 +12,7 @@ public class Logger
     #region Fields
     private static Logger _instance;
 
-    private string userID = PlayerPrefs.GetString("UserID");
+    public string userID = PlayerPrefs.GetString("UserID");
     public string FolderName = DateTime.Now.ToString("MM-dd-yy");
     public string FileName = DateTime.Now.ToString("hh-mm-ss"); // + LoggerBehavior.sceneName;
 

@@ -22,8 +22,8 @@ public class DrawGazePath : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             GazeMarker.oldGazePath.Add(new List<Vector3>(currentLinePoints));
-            currentLinePoints.Clear();
             line.positionCount = 0;
+            currentLinePoints.Clear();
         }
         if (lastPos != GazeMarker.gazePath.Last() && SpawnCircle.targetCircle.Count == 1)
         {
