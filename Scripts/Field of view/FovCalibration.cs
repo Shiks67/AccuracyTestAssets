@@ -20,6 +20,16 @@ public class FovCalibration : MonoBehaviour
     {
         // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
         rCaster = Camera.main.GetComponent<RayCaster>();
+
+        InitTargetScale();
+    }
+
+    private void InitTargetScale()
+    {
+        foreach(var text in verticalTextList)
+        {
+            var goParent = text.gameObject.transform.parent;
+        }
     }
 
     // Update is called once per frame

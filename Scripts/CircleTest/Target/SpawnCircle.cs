@@ -27,7 +27,7 @@ public class SpawnCircle : MonoBehaviour
     private float countDown = 3f;
 
     public static List<GameObject> targetCircle = new List<GameObject>();
-    public List<GameObject> gazeList = new List<GameObject>();
+    public List<GameObject> offsetGazeList = new List<GameObject>();
 
     // Use this for initialization
     void Start()
@@ -101,17 +101,17 @@ public class SpawnCircle : MonoBehaviour
 
         lr.SetPosition(0, new Vector3(pos.x, pos.y, newGazePoint.transform.position.z));
         lr.SetPosition(1, newGazePoint.transform.position);
-        lr.startWidth = 0.04f;
-        lr.endWidth = 0.04f;
+        lr.startWidth = 0.02f;
+        lr.endWidth = 0.02f;
         lr.useWorldSpace = false;
 
         newGazePoint.transform.SetParent(go.transform);
 
-        gazeList.Add(go);
+        offsetGazeList.Add(go);
     }
     private void ShowAllPath()
     {
-        foreach (var path in GazeMarker.oldGazePath)
+        foreach (var path in GazeMarker.savedGazePath)
         {
             var go = new GameObject();
             go.transform.SetParent(gameObject.transform.parent);
@@ -120,8 +120,8 @@ public class SpawnCircle : MonoBehaviour
 
             var lr = go.AddComponent<LineRenderer>();
             lr.positionCount = path.Count;
-            lr.startWidth = 0.04f;
-            lr.endWidth = 0.04f;
+            lr.startWidth = 0.02f;
+            lr.endWidth = 0.02f;
             lr.useWorldSpace = false;
             lr.material.color = Color.green;
 
@@ -131,6 +131,7 @@ public class SpawnCircle : MonoBehaviour
                 lr.SetPosition(positionToSet, pos);
                 positionToSet++;
             }
+            go.transform.SetParent(gameObject.transform);
             goPathList.Add(go);
         }
     }
@@ -146,6 +147,35 @@ public class SpawnCircle : MonoBehaviour
             newCircle(i, true);
         }
         ShowAllPath();
+        WorstOffset();
+    }
+
+    private void WorstOffset()
+    {
+        float worstX = 0;
+        float worstY = 0;
+
+        for (int i = 0; i < indexOrder.Count; i++)
+        {
+            float offsetX = Mathf.Abs(finalGazePos[indexOrder[i]].x);
+
+            float offsetY = Mathf.Abs(finalGazePos[indexOrder[i]].y);
+
+            float circleCenterX = Mathf.Abs(spawnArea[indexOrder[i]].x);
+
+            float circleCenterY = Mathf.Abs(spawnArea[indexOrder[i]].y);
+
+            float offsetDiffX = Mathf.Abs(offsetX - circleCenterX);
+            float offsetDiffY = Mathf.Abs(offsetY - circleCenterY);
+
+            if (worstX < offsetDiffX)
+                worstX = offsetDiffX;
+
+            if (worstY < offsetDiffY)
+                worstY = offsetDiffY;
+        }
+        FovStatic.horizontalSize = worstX;
+        FovStatic.verticalSize = worstY;
     }
 
     ///<summary> Destroy every GameObject target
@@ -157,7 +187,7 @@ public class SpawnCircle : MonoBehaviour
         {
             Destroy(obj);
         }
-        foreach (var obj in gazeList)
+        foreach (var obj in offsetGazeList)
         {
             Destroy(obj);
         }
@@ -165,20 +195,15 @@ public class SpawnCircle : MonoBehaviour
         if (retry)
         {
             SpawnCircle.targetCircle.Clear();
-            gazeList.Clear();
+            offsetGazeList.Clear();
 
             circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
             SpawnCircle.finalGazePos = new Vector3[9];
             GazeMarker.gazePath.Clear();
-            GazeMarker.oldGazePath.Clear();
+            GazeMarker.savedGazePath.Clear();
             isVisited = new bool[9];
             countObj.gameObject.SetActive(true);
             countDown = 3f;
         }
-    }
-
-    public void ResumeLastCircle()
-    {
-        newCircle(index);
     }
 }

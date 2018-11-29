@@ -19,13 +19,15 @@ public class DrawGazePath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(SpawnCircle.targetCircle.Count != 1)
+            return;
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            GazeMarker.oldGazePath.Add(new List<Vector3>(currentLinePoints));
+            GazeMarker.savedGazePath.Add(new List<Vector3>(currentLinePoints));
             line.positionCount = 0;
             currentLinePoints.Clear();
         }
-        if (lastPos != GazeMarker.gazePath.Last() && SpawnCircle.targetCircle.Count == 1)
+        if (lastPos != GazeMarker.gazePath.Last())
         {
             lastPos = GazeMarker.gazePath.Last();
             AddLinePoint(lastPos);
@@ -36,12 +38,12 @@ public class DrawGazePath : MonoBehaviour
     {
         line = gameObject.AddComponent<LineRenderer>();
         line.material.color = Color.red;
-        line.startWidth = 0.04f;
-        line.endWidth = 0.04f;
+        line.startWidth = 0.02f;
+        line.endWidth = 0.02f;
         line.useWorldSpace = false;
         line.sortingLayerName = "UIdata";
         line.sortingOrder = 5;
-        line.SetPosition(0, GazeMarker.gazePath.Last());
+        // line.SetPosition(0, GazeMarker.gazePath.Last());
     }
 
     void AddLinePoint(Vector3 lastPos)

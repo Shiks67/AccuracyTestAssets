@@ -9,13 +9,7 @@ public class MenuManager : MonoBehaviour
     public GameObject menu;
     private string AccuracyTest = "CircleTest";
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))

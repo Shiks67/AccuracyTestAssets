@@ -12,6 +12,7 @@ public class PathResult : MonoBehaviour
     {
         spawnCircle = gameObject.GetComponent<SpawnCircle>();
     }
+
     public void PreviousPath()
     {
         if (spawnCircle.indexOrder.Count < 9)
@@ -21,9 +22,9 @@ public class PathResult : MonoBehaviour
         {
             index = 8;
         }
-        DestroyLastPath();
+        HidePaths();
         spawnCircle.goPathList[index].gameObject.SetActive(true);
-        spawnCircle.gazeList[spawnCircle.indexOrder[index]].gameObject.SetActive(true);
+        spawnCircle.offsetGazeList[spawnCircle.indexOrder[index]].gameObject.SetActive(true);
         SpawnCircle.targetCircle[spawnCircle.indexOrder[index]].gameObject.SetActive(true);
     }
 
@@ -36,13 +37,13 @@ public class PathResult : MonoBehaviour
         {
             index = 0;
         }
-        DestroyLastPath();
+        HidePaths();
         spawnCircle.goPathList[index].gameObject.SetActive(true);
-        spawnCircle.gazeList[spawnCircle.indexOrder[index]].gameObject.SetActive(true);
+        spawnCircle.offsetGazeList[spawnCircle.indexOrder[index]].gameObject.SetActive(true);
         SpawnCircle.targetCircle[spawnCircle.indexOrder[index]].gameObject.SetActive(true);
     }
 
-    private void DestroyLastPath()
+    private void HidePaths()
     {
         foreach (var go in spawnCircle.goPathList)
         {
@@ -52,7 +53,7 @@ public class PathResult : MonoBehaviour
         {
             go.gameObject.SetActive(false);
         }
-        foreach (var go in spawnCircle.gazeList)
+        foreach (var go in spawnCircle.offsetGazeList)
         {
             go.gameObject.SetActive(false);
         }

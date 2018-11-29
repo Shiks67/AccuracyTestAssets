@@ -12,10 +12,6 @@ public class AimCalculator : MonoBehaviour
     private float xScale, yScale;
     private float midX, midY;
 
-    // Use this for initialization
-    void Start()
-    { }
-
     // Update is called once per frame
     void Update()
     {
@@ -36,7 +32,6 @@ public class AimCalculator : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             lastDots[i] = GazeMarker.gazePath[(GazeMarker.gazePath.Count - 10) + i];
-            // print(GazeMarker.gazePath[(GazeMarker.gazePath.Count - 10) + i]);
         }
 
         accuracyPoint.x = lastDots.Average(item => item.x);
@@ -46,25 +41,19 @@ public class AimCalculator : MonoBehaviour
 
     private void updateDispersionZone()
     {
-        midX = accuracyPoint.x;
-        midX = midX > 0 ? midX : midX * -1;
+        midX = Mathf.Abs(accuracyPoint.x);
 
-        midY = accuracyPoint.y;
-        midY = midY > 0 ? midY : midY * -1;
+        midY = Mathf.Abs(accuracyPoint.y);
 
-        var maxX = lastDots.Max(item => item.x);
-        maxX = maxX > 0 ? maxX : maxX * -1;
+        var maxX = Mathf.Abs(lastDots.Max(item => item.x));
 
-        var minX = lastDots.Min(item => item.x);
-        minX = minX > 0 ? minX : minX * -1;
+        var minX = Mathf.Abs(lastDots.Min(item => item.x));
 
         xScale = maxX > minX ? maxX - midX : minX - midX;
 
-        var maxY = lastDots.Max(item => item.y);
-        maxY = maxY > 0 ? maxY : maxY * -1;
+        var maxY = Mathf.Abs(lastDots.Max(item => item.y));
 
-        var minY = lastDots.Min(item => item.y);
-        minY = minY > 0 ? minY : minY * -1;
+        var minY = Mathf.Abs(lastDots.Min(item => item.y));
 
         yScale = maxY > minY ? maxY - midY : minY - midY;
 

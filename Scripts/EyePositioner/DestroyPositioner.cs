@@ -13,9 +13,9 @@ public class DestroyPositioner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.C))
         {
-			Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

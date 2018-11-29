@@ -5,7 +5,7 @@ using UnityEngine;
 public class GazeMarker : MonoBehaviour
 {
     public static List<Vector3> gazePath = new List<Vector3>();
-    public static List<List<Vector3>> oldGazePath = new List<List<Vector3>>();
+    public static List<List<Vector3>> savedGazePath = new List<List<Vector3>>();
     private RayCaster rCaster;
 
     void Start()
