@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
 
     private RayCaster rCaster;
     private RaycastHit hit;
+    private RaycastHit[] hits;
+    public GameObject gazePosObj;
     // private GameObject mainCamera;
     // private bool dotMarkVisibility;
     public GameObject menu;
@@ -24,11 +26,13 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GazePosUpdate();
         if (Input.GetKeyUp(KeyCode.M))
             menu.SetActive(!menu.activeSelf);
 
         if (Physics.Raycast(rCaster.ray, out hit))
         {
+            
             //if there is max 1 circle on the grid
             if (SpawnCircle.targetCircle.Count == 1)
             {
@@ -60,6 +64,20 @@ public class GameController : MonoBehaviour
         while (!asyncScene.isDone)
         {
             yield return null;
+        }
+    }
+
+    void GazePosUpdate()
+    {
+        hits = Physics.RaycastAll(rCaster.ray);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+            if (hit.transform.name == "Quadri")
+            {
+                gazePosObj.transform.localPosition = hit.transform.InverseTransformPoint(hit.point);
+                // print(gazePosObj.transform.localPosition);
+            }
         }
     }
 

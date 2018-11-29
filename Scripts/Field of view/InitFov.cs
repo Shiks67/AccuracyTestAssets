@@ -14,7 +14,8 @@ public class InitFov : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        SceneManager.UnloadSceneAsync("CircleTest");
+        if (SceneManager.GetActiveScene().name == "CircleTest")
+            SceneManager.UnloadSceneAsync("CircleTest");
 
         foreach (var go in horizontalTarget)
         {

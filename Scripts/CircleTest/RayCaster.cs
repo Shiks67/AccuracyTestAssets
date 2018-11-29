@@ -58,16 +58,17 @@ public class RayCaster : MonoBehaviour
         heading.SetPosition(0, mainCamera.transform.position - mainCamera.transform.up);
         ray = mainCamera.ViewportPointToRay(viewportPoint);
 
-        GazePosUpdate();
-        
-        if (Physics.Raycast(ray, out hit))
+        if (gameObject.GetComponent<LineRenderer>().enabled)
         {
-            heading.SetPosition(1, hit.point);
-            hit.point = transform.InverseTransformPoint(hit.point);
-        }
-        else
-        {
-            heading.SetPosition(1, ray.origin + ray.direction * 50f);
+            if (Physics.Raycast(ray, out hit))
+            {
+                heading.SetPosition(1, hit.point);
+                hit.point = transform.InverseTransformPoint(hit.point);
+            }
+            else
+            {
+                heading.SetPosition(1, ray.origin + ray.direction * 50f);
+            }
         }
     }
 
@@ -77,19 +78,5 @@ public class RayCaster : MonoBehaviour
         //marker.localPosition = PupilData._3D.GazePosition;
         ray = new Ray(mainCamera.transform.position, mainCamera.transform.rotation * gazeLoc * 10);
         Debug.DrawRay(mainCamera.transform.position, mainCamera.transform.rotation * gazeLoc * 10);
-    }
-
-    void GazePosUpdate()
-    {
-        hits = Physics.RaycastAll(ray);
-        for (int i = 0; i < hits.Length; i++)
-        {
-            RaycastHit hit = hits[i];
-            if (hit.transform.name == "Quadri")
-            {
-                gazePosObj.transform.position = hit.point;
-                // print(gazePosObj.transform.localPosition);
-            }
-        }
     }
 }

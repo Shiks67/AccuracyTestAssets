@@ -26,7 +26,7 @@ public class FovCalibration : MonoBehaviour
 
     private void InitTargetScale()
     {
-        foreach(var text in verticalTextList)
+        foreach (var text in verticalTextList)
         {
             var goParent = text.gameObject.transform.parent;
         }
@@ -89,6 +89,15 @@ public class FovCalibration : MonoBehaviour
             }
         }
     }
+
+    public void ApplyToStatics()
+    {
+        FovStatic.upLeftPos = UpLeft.transform.localPosition;
+        FovStatic.upRightPos = UpRight.transform.localPosition;
+        FovStatic.downLeftPos = DownLeft.transform.localPosition;
+        FovStatic.downRightPos = DownRight.transform.localPosition;
+    }
+
     private string randomText = "";
 
     private void RandomizeText()
@@ -118,13 +127,13 @@ public class FovCalibration : MonoBehaviour
         foreach (var htext in horizontalTextList)
         {
             htext.transform.localScale = new Vector3(htext.transform.localScale.x + 0.1f,
-            htext.transform.localScale.y + 0.1f, 
+            htext.transform.localScale.y + 0.1f,
             htext.transform.localScale.z + 0.1f);
         }
         foreach (var vtext in verticalTextList)
         {
             vtext.transform.localScale = new Vector3(vtext.transform.localScale.x + 0.1f,
-            vtext.transform.localScale.y + 0.1f, 
+            vtext.transform.localScale.y + 0.1f,
             vtext.transform.localScale.z + 0.1f);
         }
     }
@@ -135,14 +144,14 @@ public class FovCalibration : MonoBehaviour
         {
             if (htext.transform.localScale.x > 0)
                 htext.transform.localScale = new Vector3(htext.transform.localScale.x - 0.1f,
-            htext.transform.localScale.y - 0.1f, 
+            htext.transform.localScale.y - 0.1f,
             htext.transform.localScale.z - 0.1f);
         }
         foreach (var vtext in verticalTextList)
         {
             if (vtext.transform.localScale.x > 0)
                 vtext.transform.localScale = new Vector3(vtext.transform.localScale.x - 0.1f,
-            vtext.transform.localScale.y - 0.1f, 
+            vtext.transform.localScale.y - 0.1f,
             vtext.transform.localScale.z - 0.1f);
         }
     }

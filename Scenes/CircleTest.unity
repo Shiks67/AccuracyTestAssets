@@ -2831,6 +2831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3a74e95bfc13f4e93438c387e68ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gazePosObj: {fileID: 1568034941}
   menu: {fileID: 1652858463}
 --- !u!4 &1580673202
 Transform:

@@ -19,7 +19,7 @@ public class CsvWriter : IDisposable
     {
         var myType = o.GetType();
         IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-        var last = props.Last();
+        var last = props[props.Count - 1];
         foreach (var prop in props)
         {
             _stream.Write(prop.GetValue(o, null));

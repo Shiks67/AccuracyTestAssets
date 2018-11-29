@@ -19,7 +19,7 @@ public class DrawGazePath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(SpawnCircle.targetCircle.Count != 1)
+        if (SpawnCircle.targetCircle.Count != 1)
             return;
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -27,9 +27,9 @@ public class DrawGazePath : MonoBehaviour
             line.positionCount = 0;
             currentLinePoints.Clear();
         }
-        if (lastPos != GazeMarker.gazePath.Last())
+        if (lastPos != GazeMarker.gazePath[GazeMarker.gazePath.Count - 1])
         {
-            lastPos = GazeMarker.gazePath.Last();
+            lastPos = GazeMarker.gazePath[GazeMarker.gazePath.Count - 1];
             AddLinePoint(lastPos);
         }
     }
@@ -43,7 +43,7 @@ public class DrawGazePath : MonoBehaviour
         line.useWorldSpace = false;
         line.sortingLayerName = "UIdata";
         line.sortingOrder = 5;
-        // line.SetPosition(0, GazeMarker.gazePath.Last());
+        // line.SetPosition(0, GazeMarker.gazePath[GazeMarker.gazePath.Count - 1]);
     }
 
     void AddLinePoint(Vector3 lastPos)
