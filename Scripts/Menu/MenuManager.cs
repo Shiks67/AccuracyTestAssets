@@ -7,42 +7,54 @@ public class MenuManager : MonoBehaviour
 {
 
     public GameObject menu;
-    private string AccuracyTest = "CircleTest";
+    private string accuracyTest = "CircleTest";
+    private string fovCalibration = "Field of view";
+    private Camera mainCamera;
 
-     // Update is called once per frame
+    void Start()
+    {
+        mainCamera = Camera.main;
+    }
+
+    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
             menu.gameObject.SetActive(!menu.activeSelf);
-        if (menu.gameObject.activeSelf == true)
-        {
-            if (Input.GetKeyUp(KeyCode.Y))
-            {
-                StartCoroutine(LoadCurrentScene());
-                menu.gameObject.SetActive(!menu.activeSelf);
-            }
-            if (Input.GetKeyUp(KeyCode.N))
-            {
-                SceneManager.UnloadSceneAsync(AccuracyTest);
-                menu.gameObject.SetActive(!menu.activeSelf);
-            }
-        }
     }
 
     public void StartAccuTest()
     {
-        StartCoroutine(LoadCurrentScene());
+        mainCamera.enabled = false;
+        StartCoroutine(LoadCurrentScene(accuracyTest));
+        
         menu.gameObject.SetActive(!menu.activeSelf);
     }
 
     public void StopAccuTest()
     {
-        SceneManager.UnloadSceneAsync(AccuracyTest);
+        SceneManager.UnloadSceneAsync(accuracyTest);
+        menu.gameObject.SetActive(!menu.activeSelf);
+        mainCamera.enabled = true;
+    }
+
+    public void StartFovCalibration()
+    {
+        mainCamera.enabled = false;
+        StartCoroutine(LoadCurrentScene(fovCalibration));
         menu.gameObject.SetActive(!menu.activeSelf);
     }
-    IEnumerator LoadCurrentScene()
+
+    public void StopFovCalibration()
     {
-        AsyncOperation asyncScene = SceneManager.LoadSceneAsync(AccuracyTest
+        SceneManager.UnloadSceneAsync(fovCalibration);
+        menu.gameObject.SetActive(!menu.activeSelf);
+        mainCamera.enabled = true;
+    }
+
+    IEnumerator LoadCurrentScene(string sceneName)
+    {
+        AsyncOperation asyncScene = SceneManager.LoadSceneAsync(sceneName
             , LoadSceneMode.Additive);
 
         while (!asyncScene.isDone)

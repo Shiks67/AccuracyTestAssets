@@ -14,9 +14,6 @@ public class InitFov : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "CircleTest")
-            SceneManager.UnloadSceneAsync("CircleTest");
-
         foreach (var go in horizontalTarget)
         {
             var subText = go.transform.Find("Canvas").gameObject;

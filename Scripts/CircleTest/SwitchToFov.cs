@@ -7,10 +7,9 @@ public class SwitchToFov : MonoBehaviour
 {
     public void StartFovScene()
     {
-        //Camera.main.enabled = false;
+        SceneManager.UnloadSceneAsync("CircleTest");
         StartCoroutine(LoadCurrentScene("Field of view"));
         gameObject.SetActive(false);
-        SceneManager.UnloadSceneAsync("CircleTest");
     }
 
     IEnumerator LoadCurrentScene(string sceneName)

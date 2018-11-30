@@ -86,9 +86,6 @@ public class FramePublishing : MonoBehaviour
     public void InitializeFramePublishing(int eyeIndex)
     {
         Transform parent = GetComponentInChildren<Camera>().transform;
-		
-        if (SceneManager.GetActiveScene().name != "2D Calibration Demo")
-            parent = Camera.main.transform;
 
         Shader shader = Shader.Find("Unlit/Texture");
 

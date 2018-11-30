@@ -20,8 +20,10 @@ public class FovCalibration : MonoBehaviour
     {
         // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
         rCaster = Camera.main.GetComponent<RayCaster>();
-
         InitTargetScale();
+
+        if (FovStatic.upLeftPos != new Vector3(0, 0, 0))
+            ResumeLastCalibration();
     }
 
     private void InitTargetScale()
@@ -35,11 +37,11 @@ public class FovCalibration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.O))
+        if (Input.GetKeyUp(KeyCode.Space))
             RandomizeText();
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.UpArrow))
             ExtendTextSize();
-        if (Input.GetKeyUp(KeyCode.M))
+        if (Input.GetKeyUp(KeyCode.DownArrow))
             ReduceTextSize();
 
         RaycastHit hit;
@@ -90,12 +92,29 @@ public class FovCalibration : MonoBehaviour
         }
     }
 
+    private void ResumeLastCalibration()
+    {
+        UpLeft.transform.localPosition = FovStatic.upLeftPos;
+        UpRight.transform.localPosition = FovStatic.upRightPos;
+        DownLeft.transform.localPosition = FovStatic.downLeftPos;
+        DownRight.transform.localPosition = FovStatic.downRightPos;
+    }
+
+
     public void ApplyToStatics()
     {
         FovStatic.upLeftPos = UpLeft.transform.localPosition;
         FovStatic.upRightPos = UpRight.transform.localPosition;
         FovStatic.downLeftPos = DownLeft.transform.localPosition;
         FovStatic.downRightPos = DownRight.transform.localPosition;
+    }
+
+    public void ResetFov()
+    {
+        FovStatic.upLeftPos = new Vector3(0, 0, 0);
+        FovStatic.upRightPos = new Vector3(0, 0, 0);
+        FovStatic.downLeftPos = new Vector3(0, 0, 0);
+        FovStatic.downRightPos = new Vector3(0, 0, 0);
     }
 
     private string randomText = "";
