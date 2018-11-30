@@ -194,16 +194,32 @@ public class SpawnCircle : MonoBehaviour
 
         if (retry)
         {
-            SpawnCircle.targetCircle.Clear();
+            targetCircle.Clear();
             offsetGazeList.Clear();
 
             circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
-            SpawnCircle.finalGazePos = new Vector3[9];
+            finalGazePos = new Vector3[9];
             GazeMarker.gazePath.Clear();
             GazeMarker.savedGazePath.Clear();
             isVisited = new bool[9];
             countObj.gameObject.SetActive(true);
             countDown = 3f;
         }
+    }
+
+    void OnDestroy()
+    {
+        targetCircle.Clear();
+        offsetGazeList.Clear();
+
+        circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
+        finalGazePos = new Vector3[9];
+        GazeMarker.gazePath.Clear();
+        GazeMarker.savedGazePath.Clear();
+        isVisited = new bool[9];
+        countObj.gameObject.SetActive(true);
+
+        LoggerBehavior.sceneName = "";
+        LoggerBehavior.sceneTimer = 0;
     }
 }

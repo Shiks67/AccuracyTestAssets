@@ -24,6 +24,9 @@ public class FovCalibration : MonoBehaviour
 
         if (FovStatic.upLeftPos != new Vector3(0, 0, 0))
             ResumeLastCalibration();
+
+        LoggerBehavior.sceneName = "Fov calibration";
+        LoggerBehavior.sceneTimer = 0;
     }
 
     private void InitTargetScale()
@@ -37,6 +40,7 @@ public class FovCalibration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        LoggerBehavior.sceneTimer += Time.deltaTime;
         if (Input.GetKeyUp(KeyCode.Space))
             RandomizeText();
         if (Input.GetKeyUp(KeyCode.UpArrow))
@@ -173,5 +177,11 @@ public class FovCalibration : MonoBehaviour
             vtext.transform.localScale.y - 0.1f,
             vtext.transform.localScale.z - 0.1f);
         }
+    }
+
+    void OnDestroy()
+    {
+        LoggerBehavior.sceneName = "";
+        LoggerBehavior.sceneTimer = 0;
     }
 }

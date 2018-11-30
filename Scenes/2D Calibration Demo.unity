@@ -831,7 +831,7 @@ Prefab:
     - target: {fileID: 114039770744552444, guid: 1a363ebd9791e7d48a02435c46d956ab,
         type: 2}
       propertyPath: availableScenes.Array.data[0]
-      value: CircleTest
+      value: SampleScene
       objectReference: {fileID: 0}
     - target: {fileID: 114039770744552444, guid: 1a363ebd9791e7d48a02435c46d956ab,
         type: 2}
@@ -883,6 +883,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4149187830991734, guid: 1a363ebd9791e7d48a02435c46d956ab,
     type: 2}
   m_PrefabInternal: {fileID: 997137960}
+--- !u!1 &997137963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1508411167041054, guid: 1a363ebd9791e7d48a02435c46d956ab,
+    type: 2}
+  m_PrefabInternal: {fileID: 997137960}
 --- !u!114 &997137964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -899,6 +904,17 @@ MonoBehaviour:
   leftPupil: {fileID: 1196025576}
   rightPupil: {fileID: 225538897}
   refreshTime: 0.2
+--- !u!114 &997137965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 997137963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b20455d494f42a4f8a4e7d021e3971a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1196025576 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1374404484492164, guid: 36f34965b8a2dca4b9f2b41a62cc9ca2,
@@ -1047,9 +1063,9 @@ RectTransform:
   m_Father: {fileID: 449176631}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 378, y: 302}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -80.9, y: -15.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1502321618

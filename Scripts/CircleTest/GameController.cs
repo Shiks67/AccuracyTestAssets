@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
     private RaycastHit hit;
     private RaycastHit[] hits;
     public GameObject gazePosObj;
+    public static Vector3 gazePosition;
+
     // private GameObject mainCamera;
     // private bool dotMarkVisibility;
     public GameObject menu;
@@ -20,18 +22,21 @@ public class GameController : MonoBehaviour
     {
         // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
         rCaster = Camera.main.GetComponent<RayCaster>();
+        LoggerBehavior.sceneName = "CircleTest";
+        LoggerBehavior.sceneTimer = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        LoggerBehavior.sceneTimer += Time.deltaTime;
         GazePosUpdate();
         if (Input.GetKeyUp(KeyCode.M))
             menu.SetActive(!menu.activeSelf);
 
         if (Physics.Raycast(rCaster.ray, out hit))
         {
-            
+
             //if there is max 1 circle on the grid
             if (SpawnCircle.targetCircle.Count == 1)
             {
@@ -56,6 +61,7 @@ public class GameController : MonoBehaviour
             if (hit.transform.name == "Quadri")
             {
                 gazePosObj.transform.localPosition = hit.transform.InverseTransformPoint(hit.point);
+                gazePosition = hit.transform.InverseTransformPoint(hit.point);
                 // print(gazePosObj.transform.localPosition);
             }
         }
