@@ -12,7 +12,6 @@ public class DrawGazePath : MonoBehaviour
     private List<Vector3> currentLinePoints = new List<Vector3>();
     void Start()
     {
-
         SetupLine();
     }
 
@@ -38,8 +37,8 @@ public class DrawGazePath : MonoBehaviour
     {
         line = gameObject.AddComponent<LineRenderer>();
         line.material.color = Color.red;
-        line.startWidth = 0.02f;
-        line.endWidth = 0.02f;
+        line.startWidth = 0.04f;
+        line.endWidth = 0.04f;
         line.useWorldSpace = false;
         line.sortingLayerName = "UIdata";
         line.sortingOrder = 5;

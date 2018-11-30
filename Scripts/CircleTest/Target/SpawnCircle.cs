@@ -101,8 +101,8 @@ public class SpawnCircle : MonoBehaviour
 
         lr.SetPosition(0, new Vector3(pos.x, pos.y, newGazePoint.transform.position.z));
         lr.SetPosition(1, newGazePoint.transform.position);
-        lr.startWidth = 0.02f;
-        lr.endWidth = 0.02f;
+        lr.startWidth = 0.04f;
+        lr.endWidth = 0.04f;
         lr.useWorldSpace = false;
 
         newGazePoint.transform.SetParent(go.transform);
@@ -115,13 +115,13 @@ public class SpawnCircle : MonoBehaviour
         {
             var go = new GameObject();
             go.transform.SetParent(gameObject.transform.parent);
-            go.transform.position = gameObject.transform.localPosition;
+            go.transform.localPosition = gameObject.transform.localPosition;
             go.transform.localScale = gameObject.transform.localScale;
 
             var lr = go.AddComponent<LineRenderer>();
             lr.positionCount = path.Count;
-            lr.startWidth = 0.02f;
-            lr.endWidth = 0.02f;
+            lr.startWidth = 0.04f;
+            lr.endWidth = 0.04f;
             lr.useWorldSpace = false;
             lr.material.color = Color.green;
 
