@@ -25,9 +25,11 @@ public class MenuManager : MonoBehaviour
 
     public void StartAccuTest()
     {
+        if (SceneManager.GetActiveScene().name == "Field of view")
+            StopFovCalibration();
         mainCamera.enabled = false;
         StartCoroutine(LoadCurrentScene(accuracyTest));
-        
+
         menu.gameObject.SetActive(!menu.activeSelf);
     }
 
@@ -40,6 +42,8 @@ public class MenuManager : MonoBehaviour
 
     public void StartFovCalibration()
     {
+        if (SceneManager.GetActiveScene().name == "CircleTest")
+            StopAccuTest();
         mainCamera.enabled = false;
         StartCoroutine(LoadCurrentScene(fovCalibration));
         menu.gameObject.SetActive(!menu.activeSelf);

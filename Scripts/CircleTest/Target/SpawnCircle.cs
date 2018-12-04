@@ -85,7 +85,7 @@ public class SpawnCircle : MonoBehaviour
 
         if (result)
         {
-            ShowOffset(id, newObject.transform.position);
+            ShowOffset(id, newObject.transform.localPosition);
         }
     }
 
@@ -96,11 +96,16 @@ public class SpawnCircle : MonoBehaviour
         newGazePoint.transform.localPosition = finalGazePos[id];
 
         var go = new GameObject();
+        go.name = "offset : " + id;
         go.transform.SetParent(gameObject.transform);
+        go.transform.localPosition = new Vector3(0, 0, 0);
+        go.transform.localScale = new Vector3(1, 1, 1);
+        go.transform.rotation = gameObject.transform.rotation;
+
         var lr = go.AddComponent<LineRenderer>();
 
-        lr.SetPosition(0, new Vector3(pos.x, pos.y, newGazePoint.transform.position.z));
-        lr.SetPosition(1, newGazePoint.transform.position);
+        lr.SetPosition(0, new Vector3(pos.x, pos.y, newGazePoint.transform.localPosition.z));
+        lr.SetPosition(1, newGazePoint.transform.localPosition);
         lr.startWidth = 0.04f;
         lr.endWidth = 0.04f;
         lr.useWorldSpace = false;
@@ -115,7 +120,9 @@ public class SpawnCircle : MonoBehaviour
         {
             var go = new GameObject();
             go.transform.SetParent(gameObject.transform.parent);
+            go.name = "path";
             go.transform.localPosition = gameObject.transform.localPosition;
+            go.transform.rotation = gameObject.transform.rotation;
             go.transform.localScale = gameObject.transform.localScale;
 
             var lr = go.AddComponent<LineRenderer>();

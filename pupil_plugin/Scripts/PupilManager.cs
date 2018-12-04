@@ -116,6 +116,8 @@ public class PupilManager : MonoBehaviour
 	private int loadedSceneIndex = -1;
 	IEnumerator LoadCurrentScene()
 	{
+		CalibLight.SetActive(false);
+
 		AsyncOperation asyncScene = SceneManager.LoadSceneAsync(availableScenes[currentSceneIndex],LoadSceneMode.Additive);
 
 		while (!asyncScene.isDone)
@@ -135,6 +137,7 @@ public class PupilManager : MonoBehaviour
 		loadedSceneIndex = -1;
 	}
 
+	public GameObject CalibLight;
 	void StartDemo()
 	{
 		StartCoroutine (LoadCurrentScene());

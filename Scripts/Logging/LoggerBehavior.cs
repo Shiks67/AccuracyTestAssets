@@ -16,7 +16,6 @@ public class LoggerBehavior : MonoBehaviour
     private static List<object> _toLog;
     private Vector3 gazeToWorld;
     private static string CSVheader = AppConstants.CsvFirstRow;
-    private Camera dedicatedCapture;
 
     //CircleTruc log var
     private GameObject circleObject;
@@ -34,11 +33,12 @@ public class LoggerBehavior : MonoBehaviour
     private void Start()
     {
         _toLog = new List<object>();
-        dedicatedCapture = Camera.main;
     }
 
     private void Update()
     {
+        if (sceneName == "")
+            return;
         if (SpawnCircle.targetCircle.Count == 1)
         {
             gazePosx = (GameController.gazePosition.x).ToString("F2");
@@ -64,7 +64,7 @@ public class LoggerBehavior : MonoBehaviour
     {
         if (PupilData._2D.GazePosition != Vector2.zero)
         {
-            gazeToWorld = dedicatedCapture.ViewportToWorldPoint(new Vector3
+            gazeToWorld = Camera.main.ViewportToWorldPoint(new Vector3
             (PupilData._2D.GazePosition.x, PupilData._2D.GazePosition.y,
             Camera.main.nearClipPlane));
         }
