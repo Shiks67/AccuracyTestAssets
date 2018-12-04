@@ -1412,7 +1412,7 @@ GameObject:
   - component: {fileID: 947037542}
   - component: {fileID: 947037544}
   - component: {fileID: 947037543}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: rightConfidence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2100,7 +2100,7 @@ GameObject:
   - component: {fileID: 1510047445}
   - component: {fileID: 1510047447}
   - component: {fileID: 1510047446}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: leftConfidence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2646,6 +2646,10 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049376994679938, guid: e3914e4d7d486584ba9da6442762ea46, type: 2}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3914e4d7d486584ba9da6442762ea46, type: 2}
