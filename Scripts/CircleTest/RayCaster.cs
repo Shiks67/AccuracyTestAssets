@@ -51,7 +51,6 @@ public class RayCaster : MonoBehaviour
         viewportPoint = new Vector3(0.5f, 0.5f, 10);
         if (PupilTools.IsConnected && PupilTools.IsGazing)
         {
-
             gazePointCenter = PupilData._2D.GazePosition;
             viewportPoint = new Vector3(gazePointCenter.x, gazePointCenter.y, 1f);
         }
