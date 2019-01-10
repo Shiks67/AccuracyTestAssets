@@ -11,7 +11,10 @@ public class FovCalibration : MonoBehaviour
     public GameObject DownLeft;
     public GameObject DownRight;
     private RayCaster rCaster;
-    private int speed = 5;
+    private GameObject lastObj;
+    private int index = 0;
+    private float speed = .2f;
+    private GameObject obj;
     public List<Text> verticalTextList = new List<Text>();
     public List<Text> horizontalTextList = new List<Text>();
 
@@ -27,6 +30,12 @@ public class FovCalibration : MonoBehaviour
 
         LoggerBehavior.sceneName = "Fov calibration";
         LoggerBehavior.sceneTimer = 0;
+
+        RandomizeText();
+
+        UpRight.SetActive(false);
+        DownRight.SetActive(false);
+        DownLeft.SetActive(false);
     }
 
     private void InitTargetScale()
@@ -42,36 +51,39 @@ public class FovCalibration : MonoBehaviour
     {
         LoggerBehavior.sceneTimer += Time.deltaTime;
         if (Input.GetKeyUp(KeyCode.Space))
-            RandomizeText();
-        if (Input.GetKeyUp(KeyCode.UpArrow))
-            ExtendTextSize();
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-            ReduceTextSize();
+            NextPart();
 
         RaycastHit hit;
         if (Physics.Raycast(rCaster.ray, out hit))
         {
-            var obj = hit.transform.gameObject;
+            obj = hit.transform.gameObject;
+            print(obj.transform.parent.gameObject);
+            obj.GetComponent<Renderer>().material.color = Color.green;
 
-            if (obj == UpLeft)
+            if ((obj != lastObj || obj == null) && lastObj != null)
+                lastObj.GetComponent<Renderer>().material.color = Color.white;
+
+            lastObj = obj;
+
+            if (obj.name == "Diagonal" && obj.transform.parent.gameObject.name == "UpLeft")
             {
-                hit.transform.localPosition = new Vector3(hit.transform.localPosition.x - speed * Time.deltaTime,
-                    hit.transform.localPosition.y + speed * Time.deltaTime, hit.transform.localPosition.z);
+                hit.transform.parent.localPosition = new Vector3(hit.transform.parent.localPosition.x - speed * Time.deltaTime,
+                    hit.transform.parent.localPosition.y + speed * Time.deltaTime, hit.transform.parent.localPosition.z);
             }
-            else if (obj == DownLeft)
+            else if (obj.name == "Diagonal" && obj.transform.parent.gameObject.name == "DownLeft")
             {
-                hit.transform.localPosition = new Vector3(hit.transform.localPosition.x - speed * Time.deltaTime,
-                    hit.transform.localPosition.y - speed * Time.deltaTime, hit.transform.localPosition.z);
+                hit.transform.parent.localPosition = new Vector3(hit.transform.parent.localPosition.x - speed * Time.deltaTime,
+                    hit.transform.parent.localPosition.y - speed * Time.deltaTime, hit.transform.parent.localPosition.z);
             }
-            else if (obj == DownRight)
+            else if (obj.name == "Diagonal" && obj.transform.parent.gameObject.name == "DownRight")
             {
-                hit.transform.localPosition = new Vector3(hit.transform.localPosition.x + speed * Time.deltaTime,
-                    hit.transform.localPosition.y - speed * Time.deltaTime, hit.transform.localPosition.z);
+                hit.transform.parent.localPosition = new Vector3(hit.transform.parent.localPosition.x + speed * Time.deltaTime,
+                    hit.transform.parent.localPosition.y - speed * Time.deltaTime, hit.transform.parent.localPosition.z);
             }
-            else if (obj == UpRight)
+            else if (obj.name == "Diagonal" && obj.transform.parent.gameObject.name == "UpRight")
             {
-                hit.transform.localPosition = new Vector3(hit.transform.localPosition.x + speed * Time.deltaTime,
-                    hit.transform.localPosition.y + speed * Time.deltaTime, hit.transform.localPosition.z);
+                hit.transform.parent.localPosition = new Vector3(hit.transform.parent.localPosition.x + speed * Time.deltaTime,
+                    hit.transform.parent.localPosition.y + speed * Time.deltaTime, hit.transform.parent.localPosition.z);
             }
             else if (obj.name == "Up")
             {
@@ -94,6 +106,35 @@ public class FovCalibration : MonoBehaviour
                     hit.transform.parent.localPosition.y - speed * Time.deltaTime, hit.transform.parent.localPosition.z);
             }
         }
+        else if(lastObj != null)
+        {
+            lastObj.GetComponent<Renderer>().material.color = Color.white;
+        }
+    }
+
+    public void NextPart()
+    {
+        index++;
+        if (index == 1)
+        {
+            FovStatic.upLeftPos = UpLeft.transform.localPosition;
+            UpRight.SetActive(true);
+        }
+
+        if (index == 2)
+        {
+            FovStatic.upRightPos = UpRight.transform.localPosition;
+            DownRight.SetActive(true);
+        }
+
+        if (index == 3)
+        {
+            FovStatic.downRightPos = DownRight.transform.localPosition;
+            DownLeft.SetActive(true);
+        }
+
+        if (index == 4)
+            FovStatic.downLeftPos = DownLeft.transform.localPosition;
     }
 
     private void ResumeLastCalibration()
@@ -104,26 +145,28 @@ public class FovCalibration : MonoBehaviour
         DownRight.transform.localPosition = FovStatic.downRightPos;
     }
 
-
-    public void ApplyToStatics()
-    {
-        FovStatic.upLeftPos = UpLeft.transform.localPosition;
-        FovStatic.upRightPos = UpRight.transform.localPosition;
-        FovStatic.downLeftPos = DownLeft.transform.localPosition;
-        FovStatic.downRightPos = DownRight.transform.localPosition;
-    }
-
     public void ResetFov()
     {
         FovStatic.upLeftPos = new Vector3(0, 0, 0);
         FovStatic.upRightPos = new Vector3(0, 0, 0);
         FovStatic.downLeftPos = new Vector3(0, 0, 0);
         FovStatic.downRightPos = new Vector3(0, 0, 0);
+
+        UpLeft.transform.localPosition = new Vector3(0, 0, 0);
+        UpRight.transform.localPosition = new Vector3(0, 0, 0);
+        DownLeft.transform.localPosition = new Vector3(0, 0, 0);
+        DownRight.transform.localPosition = new Vector3(0, 0, 0);
+
+        index = 0;
+
+        UpRight.SetActive(false);
+        DownRight.SetActive(false);
+        DownLeft.SetActive(false);
     }
 
     private string randomText = "";
 
-    private void RandomizeText()
+    public void RandomizeText()
     {
         foreach (var htext in horizontalTextList)
         {
@@ -145,7 +188,7 @@ public class FovCalibration : MonoBehaviour
         }
     }
 
-    private void ExtendTextSize()
+    public void IncreaseTextSize()
     {
         foreach (var htext in horizontalTextList)
         {
@@ -161,7 +204,7 @@ public class FovCalibration : MonoBehaviour
         }
     }
 
-    private void ReduceTextSize()
+    public void ReduceTextSize()
     {
         foreach (var htext in horizontalTextList)
         {

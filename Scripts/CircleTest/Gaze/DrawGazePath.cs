@@ -40,7 +40,7 @@ public class DrawGazePath : MonoBehaviour
         line.startWidth = 0.04f;
         line.endWidth = 0.04f;
         line.useWorldSpace = false;
-        line.sortingLayerName = "UIdata";
+        line.sortingLayerName = "DesktopOnly";
         line.sortingOrder = 5;
         // line.SetPosition(0, GazeMarker.gazePath[GazeMarker.gazePath.Count - 1]);
     }
