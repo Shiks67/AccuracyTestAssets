@@ -106,7 +106,7 @@ public class FovCalibration : MonoBehaviour
                     hit.transform.parent.localPosition.y - speed * Time.deltaTime, hit.transform.parent.localPosition.z);
             }
         }
-        else if(lastObj != null)
+        else if (lastObj != null)
         {
             lastObj.GetComponent<Renderer>().material.color = Color.white;
         }
@@ -117,32 +117,40 @@ public class FovCalibration : MonoBehaviour
         index++;
         if (index == 1)
         {
-            FovStatic.upLeftPos = UpLeft.transform.localPosition;
+            FovStatic.upLeftPos = new Vector3(UpLeft.transform.localPosition.x / (5 / 0.31f),
+             UpLeft.transform.localPosition.y / (5 / 0.31f),
+             UpLeft.transform.localPosition.z / (5 / 0.31f));
             UpRight.SetActive(true);
         }
 
         if (index == 2)
         {
-            FovStatic.upRightPos = UpRight.transform.localPosition;
+            FovStatic.upRightPos = new Vector3(UpRight.transform.localPosition.x / (5 / 0.31f),
+             UpRight.transform.localPosition.y / (5 / 0.31f),
+             UpRight.transform.localPosition.z / (5 / 0.31f));
             DownRight.SetActive(true);
         }
 
         if (index == 3)
         {
-            FovStatic.downRightPos = DownRight.transform.localPosition;
+            FovStatic.downRightPos = new Vector3(DownRight.transform.localPosition.x / (5 / 0.31f),
+             DownRight.transform.localPosition.y / (5 / 0.31f),
+             DownRight.transform.localPosition.z / (5 / 0.31f));
             DownLeft.SetActive(true);
         }
 
         if (index == 4)
-            FovStatic.downLeftPos = DownLeft.transform.localPosition;
+            FovStatic.downLeftPos = new Vector3(DownLeft.transform.localPosition.x / (5 / 0.31f),
+             DownLeft.transform.localPosition.y / (5 / 0.31f),
+             DownLeft.transform.localPosition.z / (5 / 0.31f));
     }
 
     private void ResumeLastCalibration()
     {
-        UpLeft.transform.localPosition = FovStatic.upLeftPos;
-        UpRight.transform.localPosition = FovStatic.upRightPos;
-        DownLeft.transform.localPosition = FovStatic.downLeftPos;
-        DownRight.transform.localPosition = FovStatic.downRightPos;
+        UpLeft.transform.localPosition = new Vector3(FovStatic.upLeftPos.x * (5 / 0.31f), FovStatic.upLeftPos.y * (5 / 0.31f), FovStatic.upLeftPos.z * (5 / 0.31f));
+        UpRight.transform.localPosition = new Vector3(FovStatic.upRightPos.x * (5 / 0.31f), FovStatic.upRightPos.y * (5 / 0.31f), FovStatic.upRightPos.z * (5 / 0.31f)); ;
+        DownLeft.transform.localPosition = new Vector3(FovStatic.downLeftPos.x * (5 / 0.31f), FovStatic.downLeftPos.y * (5 / 0.31f), FovStatic.downLeftPos.z * (5 / 0.31f)); ;
+        DownRight.transform.localPosition = new Vector3(FovStatic.downRightPos.x * (5 / 0.31f), FovStatic.downRightPos.y * (5 / 0.31f), FovStatic.downRightPos.z * (5 / 0.31f)); ;
     }
 
     public void ResetFov()
@@ -152,13 +160,14 @@ public class FovCalibration : MonoBehaviour
         FovStatic.downLeftPos = new Vector3(0, 0, 0);
         FovStatic.downRightPos = new Vector3(0, 0, 0);
 
-        UpLeft.transform.localPosition = new Vector3(0, 0, 0);
-        UpRight.transform.localPosition = new Vector3(0, 0, 0);
-        DownLeft.transform.localPosition = new Vector3(0, 0, 0);
-        DownRight.transform.localPosition = new Vector3(0, 0, 0);
+        UpLeft.transform.localPosition = new Vector3(0, 0, 5);
+        UpRight.transform.localPosition = new Vector3(0, 0, 5);
+        DownLeft.transform.localPosition = new Vector3(0, 0, 5);
+        DownRight.transform.localPosition = new Vector3(0, 0, 5);
 
         index = 0;
 
+        UpLeft.SetActive(true);
         UpRight.SetActive(false);
         DownRight.SetActive(false);
         DownLeft.SetActive(false);

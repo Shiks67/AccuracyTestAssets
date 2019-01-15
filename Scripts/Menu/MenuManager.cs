@@ -25,34 +25,37 @@ public class MenuManager : MonoBehaviour
 
     public void StartAccuTest()
     {
-        if (SceneManager.GetActiveScene().name == "Field of view")
+        if (SceneManager.GetSceneByName("Field of view").isLoaded)
             StopFovCalibration();
+        if (SceneManager.GetSceneByName("CircleTest").isLoaded)
+            return;
+        menu.gameObject.SetActive(false);
         mainCamera.enabled = false;
         StartCoroutine(LoadCurrentScene(accuracyTest));
-
-        menu.gameObject.SetActive(!menu.activeSelf);
     }
 
     public void StopAccuTest()
     {
         SceneManager.UnloadSceneAsync(accuracyTest);
-        menu.gameObject.SetActive(!menu.activeSelf);
+        menu.gameObject.SetActive(false);
         mainCamera.enabled = true;
     }
 
     public void StartFovCalibration()
     {
-        if (SceneManager.GetActiveScene().name == "CircleTest")
+        if (SceneManager.GetSceneByName("CircleTest").isLoaded)
             StopAccuTest();
+        if (SceneManager.GetSceneByName("Field of view").isLoaded)
+            return;
+        menu.gameObject.SetActive(false);
         mainCamera.enabled = false;
         StartCoroutine(LoadCurrentScene(fovCalibration));
-        menu.gameObject.SetActive(!menu.activeSelf);
     }
 
     public void StopFovCalibration()
     {
         SceneManager.UnloadSceneAsync(fovCalibration);
-        menu.gameObject.SetActive(!menu.activeSelf);
+        menu.gameObject.SetActive(false);
         mainCamera.enabled = true;
     }
 
