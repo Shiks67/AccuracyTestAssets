@@ -9,6 +9,8 @@ public class PupilInfo : MonoBehaviour
 
     public Text lconf;
     public Text rconf;
+    public Slider ConfidenceBarSlider;
+    private List<float> ConfidenceList = new List<float>();
     public float refreshTime;
     private float countDown;
 
@@ -18,6 +20,8 @@ public class PupilInfo : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        ConfidenceBarSlider.minValue = 0;
+        ConfidenceBarSlider.maxValue = 100;
         // PupilTools.OnConnected += StartPupilSubscription;
         // PupilTools.OnDisconnecting += StopPupilSubscription;
         PupilTools.SubscribeTo("pupil.");
@@ -52,7 +56,7 @@ public class PupilInfo : MonoBehaviour
                         if (countDown < 0)
                         {
                             confidence1 = PupilTools.FloatFromDictionary(dictionary, item.Key);
-                            lconf.text = "Left conf\n" + (confidence1 * 100) + "%";
+                            lconf.text = "Left confidence\n" + (confidence1 * 100) + "%";
                         }
                         break;
                     default:
@@ -71,7 +75,7 @@ public class PupilInfo : MonoBehaviour
                         if (countDown < 0)
                         {
                             confidence0 = PupilTools.FloatFromDictionary(dictionary, item.Key);
-                            rconf.text = "Right conf\n" + (confidence0 * 100) + "%";
+                            rconf.text = "Right confidence\n" + (confidence0 * 100) + "%";
                         }
                         break;
                     default:
@@ -90,6 +94,7 @@ public class PupilInfo : MonoBehaviour
                         if (countDown < 0)
                         {
                             gazeConfidence = PupilTools.FloatFromDictionary(dictionary, item.Key);
+                            ConfidenceList.Add(gazeConfidence);
                             countDown = refreshTime;
                         }
                         break;
@@ -100,11 +105,32 @@ public class PupilInfo : MonoBehaviour
         }
     }
 
+    private float confidenceSum;
+
+    void Update()
+    {
+        // ConfidenceList.Add(Random.Range(0, 100));
+        confidenceSum = ConfidenceList.Skip(ConfidenceList.Count - 50).Take(50).Average();
+
+        ConfidenceBarSlider.value = confidenceSum;
+        print(ConfidenceBarSlider.value);
+        ConfBarUpdate();
+        countDown = refreshTime;
+    }
+
+    void ConfBarUpdate()
+    {
+        Vector3 currentPos = transform.position;
+        if (ConfidenceBarSlider.value < 60)
+            ConfidenceBarSlider.transform.GetChild(0).transform.GetChild(0).GetComponent<Image>().color = Color.red;
+        else
+            ConfidenceBarSlider.transform.GetChild(0).transform.GetChild(0).GetComponent<Image>().color = Color.green;
+    }
+
     void OnDisable()
     {
         PupilTools.OnConnected -= StartPupilSubscription;
         PupilTools.OnDisconnecting -= StopPupilSubscription;
-
         PupilTools.OnReceiveData -= CustomReceiveData;
     }
 }
