@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EyePositioner : MonoBehaviour
+public class PupilLabData : MonoBehaviour
 {
 
     public Text lconf;
@@ -14,7 +14,9 @@ public class EyePositioner : MonoBehaviour
 
     public float refreshTime;
     private float countDown;
-    private float confidence0, confidence1;
+    public static float confidence0, confidence1;
+    public static float[] confArray = new float[50];
+    private int arrayIndex = 0;
 
     void Start()
     {
@@ -38,6 +40,7 @@ public class EyePositioner : MonoBehaviour
 
     void CustomReceiveData(string topic, Dictionary<string, object> dictionary, byte[] thirdFrame = null)
     {
+        countDown -= Time.deltaTime;
         if (topic.StartsWith("pupil.1"))
         {
             foreach (var item in dictionary)
@@ -45,12 +48,9 @@ public class EyePositioner : MonoBehaviour
                 switch (item.Key)
                 {
                     case "confidence":
-                        countDown -= Time.deltaTime;
                         if (countDown < 0)
-                        {
                             confidence1 = PupilTools.FloatFromDictionary(dictionary, item.Key);
-                            lconf.text = "Left confidence\n" + (confidence1 * 100) + "%";
-                        }
+                        lconf.text = "Left confidence\n" + (confidence1 * 100) + "%";
                         break;
                     case "norm_pos":
                         var positionForKey = PupilTools.VectorFromDictionary(dictionary, item.Key);
@@ -70,25 +70,6 @@ public class EyePositioner : MonoBehaviour
                             }
                         }
                         break;
-                    case "ellipse":
-                        var dictionaryForKey = PupilTools.DictionaryFromDictionary(dictionary, item.Key);
-                        foreach (var pupilEllipse in dictionaryForKey)
-                        {
-                            switch (pupilEllipse.Key.ToString())
-                            {
-                                case "center":
-                                    // var center = PupilTools.ObjectToVector(pupilEllipse.Value);
-                                    // // center.x -= 0.5f;
-                                    // // center.y -= 0.5f;
-                                    // // center.x *= -1;
-                                    // GameObject.FindGameObjectWithTag("lcenter").transform.localPosition = center;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        // Do stuff
-                        break;
                     default:
                         break;
                 }
@@ -103,11 +84,8 @@ public class EyePositioner : MonoBehaviour
                 {
                     case "confidence":
                         if (countDown < 0)
-                        {
                             confidence0 = PupilTools.FloatFromDictionary(dictionary, item.Key);
-                            rconf.text = "Right Confidence\n" + (confidence0 * 100) + "%";
-                            countDown = refreshTime;
-                        }
+                        rconf.text = "Right Confidence\n" + (confidence0 * 100) + "%";
                         break;
                     case "norm_pos":
                         var positionForKey = PupilTools.VectorFromDictionary(dictionary, item.Key);
@@ -127,37 +105,27 @@ public class EyePositioner : MonoBehaviour
                             }
                         }
                         break;
-                    case "ellipse":
-                        var dictionaryForKey = PupilTools.DictionaryFromDictionary(dictionary, item.Key);
-                        foreach (var pupilEllipse in dictionaryForKey)
-                        {
-                            switch (pupilEllipse.Key.ToString())
-                            {
-                                case "center":
-                                    // var center = PupilTools.ObjectToVector(pupilEllipse.Value);
-                                    // // center.x -= 0.5f;
-                                    // // center.y -= 0.5f;
-                                    // // center.x *= -1;
-                                    // GameObject.FindGameObjectWithTag("rcenter").transform.localPosition = center;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        // Do stuff
-                        break;
                     default:
                         break;
                 }
             }
         }
+
+        if (countDown < 0)
+        {
+            confArray[arrayIndex] = (confidence0 + confidence1) / 2;
+            arrayIndex++;
+            if (arrayIndex == 50)
+                arrayIndex = 0;
+            countDown = refreshTime;
+        }
     }
 
     void OnDisable()
     {
-        PupilTools.OnConnected -= StartPupilSubscription;
-        PupilTools.OnDisconnecting -= StopPupilSubscription;
+        // PupilTools.OnConnected -= StartPupilSubscription;
+        // PupilTools.OnDisconnecting -= StopPupilSubscription;
 
-        PupilTools.OnReceiveData -= CustomReceiveData;
+        // PupilTools.OnReceiveData -= CustomReceiveData;
     }
 }

@@ -21,7 +21,7 @@ public class PupilInfo : MonoBehaviour
     void Start()
     {
         ConfidenceBarSlider.minValue = 0;
-        ConfidenceBarSlider.maxValue = 100;
+        ConfidenceBarSlider.maxValue = 1;
         // PupilTools.OnConnected += StartPupilSubscription;
         // PupilTools.OnDisconnecting += StopPupilSubscription;
         PupilTools.SubscribeTo("pupil.");
@@ -94,6 +94,7 @@ public class PupilInfo : MonoBehaviour
                         if (countDown < 0)
                         {
                             gazeConfidence = PupilTools.FloatFromDictionary(dictionary, item.Key);
+                            print(gazeConfidence);
                             ConfidenceList.Add(gazeConfidence);
                             countDown = refreshTime;
                         }
@@ -110,6 +111,8 @@ public class PupilInfo : MonoBehaviour
     void Update()
     {
         // ConfidenceList.Add(Random.Range(0, 100));
+        if (ConfidenceList.Count < 50)
+            return;
         confidenceSum = ConfidenceList.Skip(ConfidenceList.Count - 50).Take(50).Average();
 
         ConfidenceBarSlider.value = confidenceSum;
@@ -121,7 +124,7 @@ public class PupilInfo : MonoBehaviour
     void ConfBarUpdate()
     {
         Vector3 currentPos = transform.position;
-        if (ConfidenceBarSlider.value < 60)
+        if (ConfidenceBarSlider.value < 0.6)
             ConfidenceBarSlider.transform.GetChild(0).transform.GetChild(0).GetComponent<Image>().color = Color.red;
         else
             ConfidenceBarSlider.transform.GetChild(0).transform.GetChild(0).GetComponent<Image>().color = Color.green;

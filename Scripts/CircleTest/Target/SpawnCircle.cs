@@ -186,14 +186,16 @@ public class SpawnCircle : MonoBehaviour
     }
 
     ///<summary> Destroy every GameObject target
-    ///<typeparam name="Retry">if true the size and visited positions are reseted</typeparam>
+    ///<typeparam name="Retry">if true, everything is reset as every lists that save the state of the different GO</typeparam>
     ///</summary>
     public void DestroyAllCircles(bool retry = false)
     {
+        //destroy every circles
         foreach (var obj in targetCircle)
         {
             Destroy(obj);
         }
+        //destroy every gaze marker
         foreach (var obj in offsetGazeList)
         {
             Destroy(obj);
@@ -203,7 +205,11 @@ public class SpawnCircle : MonoBehaviour
         {
             targetCircle.Clear();
             offsetGazeList.Clear();
-
+            foreach (var obj in goPathList)
+            {
+                Destroy(obj);
+            }
+            goPathList.Clear();
             circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
             finalGazePos = new Vector3[9];
             GazeMarker.gazePath.Clear();
@@ -218,7 +224,7 @@ public class SpawnCircle : MonoBehaviour
     {
         targetCircle.Clear();
         offsetGazeList.Clear();
-
+        goPathList.Clear();
         circleFinalSize = new float[] { 30, 30, 30, 30, 30, 30, 30, 30, 30 };
         finalGazePos = new Vector3[9];
         GazeMarker.gazePath.Clear();

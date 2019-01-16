@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 449176629}
   - component: {fileID: 449176628}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -878,11 +878,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a363ebd9791e7d48a02435c46d956ab, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &997137961 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1457256292477380, guid: 1a363ebd9791e7d48a02435c46d956ab,
-    type: 2}
-  m_PrefabInternal: {fileID: 997137960}
 --- !u!4 &997137962 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4149187830991734, guid: 1a363ebd9791e7d48a02435c46d956ab,
@@ -893,22 +888,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1508411167041054, guid: 1a363ebd9791e7d48a02435c46d956ab,
     type: 2}
   m_PrefabInternal: {fileID: 997137960}
---- !u!114 &997137964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 997137961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4b00b004b49fe742ae18727b97e5d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lconf: {fileID: 609052985}
-  rconf: {fileID: 339588421}
-  leftPupil: {fileID: 1196025576}
-  rightPupil: {fileID: 225538897}
-  refreshTime: 0.2
 --- !u!114 &997137965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,6 +899,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b20455d494f42a4f8a4e7d021e3971a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &997137966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 997137963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b00b004b49fe742ae18727b97e5d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lconf: {fileID: 609052985}
+  rconf: {fileID: 339588421}
+  leftPupil: {fileID: 1196025576}
+  rightPupil: {fileID: 225538897}
+  refreshTime: 0.2
 --- !u!1 &1196025576 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1374404484492164, guid: 36f34965b8a2dca4b9f2b41a62cc9ca2,

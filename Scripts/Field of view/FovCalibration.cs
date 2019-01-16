@@ -13,7 +13,7 @@ public class FovCalibration : MonoBehaviour
     private RayCaster rCaster;
     private GameObject lastObj;
     private int index = 0;
-    private float speed = .2f;
+    private float speed = 1f;
     private GameObject obj;
     public List<Text> verticalTextList = new List<Text>();
     public List<Text> horizontalTextList = new List<Text>();
