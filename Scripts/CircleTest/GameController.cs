@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //update scene timer for logs
         LoggerBehavior.sceneTimer += Time.deltaTime;
         GazePosUpdate();
         if (Input.GetKeyUp(KeyCode.M))
@@ -37,21 +38,25 @@ public class GameController : MonoBehaviour
         if (Physics.Raycast(rCaster.ray, out hit))
         {
 
-            //if there is max 1 circle on the grid
+            //if there is 1 circle on the grid
             if (SpawnCircle.targetCircle.Count == 1)
             {
+                //if the hited object is a circle contained in the list
                 if (SpawnCircle.targetCircle.Contains(hit.transform.gameObject))
                 {
                     ReduceCircle(hit.transform.gameObject);
                 }
                 else
                 {
-                    ExtendCircle(SpawnCircle.targetCircle.First());
+                    ExtendCircle(SpawnCircle.targetCircle[0]);
                 }
             }
         }
     }
 
+    /// <summary>
+    /// update gaze position on the grid
+    /// </summary>
     void GazePosUpdate()
     {
         hits = Physics.RaycastAll(rCaster.ray);
@@ -73,7 +78,7 @@ public class GameController : MonoBehaviour
     /// <param name="circle">GameObject of the current circle</param>
     private void ReduceCircle(GameObject circle)
     {
-        //10f * Time.deltaTime so the computers speed doesn't affect the speed
+        //15f * Time.deltaTime so the computers speed doesn't affect the speed
         if (circle.transform.localScale.x > 0)
         {
             circle.transform.localScale =
@@ -91,7 +96,7 @@ public class GameController : MonoBehaviour
         //if it's smaller than the max circle size
         if (circle.transform.localScale.x < 30)
         {
-            //2f * Time.deltaTime so the computers speed doesn't affect the speed
+            //15f * Time.deltaTime so the computers speed doesn't affect the speed
             circle.transform.localScale =
             new Vector3(circle.transform.localScale.x + 15f * (Time.deltaTime * 4),
             0.1f, circle.transform.localScale.z + 15f * (Time.deltaTime * 4));

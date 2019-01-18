@@ -425,6 +425,7 @@ public class PupilTools : MonoBehaviour
 
 		UnSubscribeFrom ("notify.calibration.successful");
 		UnSubscribeFrom ("notify.calibration.failed");
+		//commented by Arthur, unsubscribe from pupil. that we need for logs
 		// UnSubscribeFrom ("pupil.");
 
 		if (OnCalibrationEnded != null)

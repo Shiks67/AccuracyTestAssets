@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Size and position of the FoV targets
+/// </summary>
 public class FovStatic {
 	public static float verticalSize;
 	public static float horizontalSize;

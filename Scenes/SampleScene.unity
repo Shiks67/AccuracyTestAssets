@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 368965430}
   - component: {fileID: 368965429}
   m_Layer: 5
-  m_Name: StartTestBtn
+  m_Name: Start accuracy test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 471743640}
   - component: {fileID: 471743639}
   m_Layer: 5
-  m_Name: LeaveFovCalibration
+  m_Name: Leave FovCalibration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,14 +593,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2068148580}
-        m_MethodName: StopFovCalibration
-        m_Mode: 1
+        m_MethodName: UnloadActiveScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Field of view
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 504057602}
   - component: {fileID: 504057601}
   m_Layer: 5
-  m_Name: LeaveTestBtn
+  m_Name: Stop accuracy test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -716,14 +716,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2068148580}
-        m_MethodName: StopAccuTest
-        m_Mode: 1
+        m_MethodName: UnloadActiveScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: CircleTest
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -1898,7 +1898,7 @@ GameObject:
   - component: {fileID: 2068148581}
   - component: {fileID: 2068148580}
   m_Layer: 0
-  m_Name: AccuracyTestLauncher
+  m_Name: TestsManagerMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

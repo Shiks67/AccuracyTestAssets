@@ -26,7 +26,7 @@ public class GazeMarker : MonoBehaviour
         {
             RaycastHit hit = hits[i];
             hitObject = hit.collider.gameObject;
-
+            //save the gaze marker position
             gazePath.Add(gameObject.transform.localPosition);
         }
     }

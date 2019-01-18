@@ -154,6 +154,7 @@ public class Connection
                     {
                         PupilTools.ReceiveData(msgType, MessagePackSerializer.Deserialize<Dictionary<string, object>>(mStream), thirdFrame);
                         // Uncomment if this is not the problem for skipping gazepoint
+                        //the continue block subscribing to multiple topics
                         // continue;
                     }
 

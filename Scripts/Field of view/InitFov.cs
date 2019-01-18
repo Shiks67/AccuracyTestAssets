@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
+/// <summary>
+/// Init fov scene
+/// </summary>
 public class InitFov : MonoBehaviour
 {
 
+    //horizontal GO parts of the targets
     public List<GameObject> horizontalTarget;
+    //vertical GO parts of the targets
     public List<GameObject> verticalTarget;
+    //middle part GO of the targets
     public List<GameObject> middleTarget;
 
 
     // Use this for initialization
     void Start()
     {
+        //Set up every targets size with the worst offset of the accuracy test
         foreach (var go in horizontalTarget)
         {
+            //remove parent GO of the text, so its size isn't changed with the parents scale
             var subText = go.transform.Find("Canvas").gameObject;
             subText.transform.SetParent(null);
 

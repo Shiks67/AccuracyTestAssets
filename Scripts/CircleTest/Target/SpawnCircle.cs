@@ -39,6 +39,7 @@ public class SpawnCircle : MonoBehaviour
     void Update()
     {
         countDown -= Time.deltaTime;
+        //starting countdown
         if (countDown > 0)
         {
             countObj.text = System.Math.Round(countDown, 0).ToString();
@@ -49,18 +50,22 @@ public class SpawnCircle : MonoBehaviour
             countObj.gameObject.SetActive(false);
         }
 
-        if (targetCircle.Count < 1 && targetCircle.Count < 5)
+        //if there is no circle on the grid
+        if (targetCircle.Count < 1)
         {
+            //if the list of spawn area contain a position not visited yet,
+            //else we show the result of the test
             if (isVisited.Contains(false))
             {
+                //get a random index which is not a visited position
                 index = Random.Range(0, 9);
                 while (isVisited[index] == true)
                 {
                     index = Random.Range(0, 9);
                 }
-                isVisited[index] = true;
-                indexOrder.Add(index);
-                newCircle(index);
+                isVisited[index] = true; //set the index position visited to true
+                indexOrder.Add(index); //setup the spawn order list
+                newCircle(index); //create the circle from that index
             }
             else
             {
@@ -73,6 +78,7 @@ public class SpawnCircle : MonoBehaviour
     /// Create a new circle with his id's informations 
     /// </summary>
     /// <param name="id">id of the circle in the array that contain all the positions</param>
+    /// <param name="reult">false by default, if true create the circle with its data result</param>
     public void newCircle(int id, bool result = false)
     {
         GameObject newObject = Instantiate(spawnObject);
@@ -80,6 +86,7 @@ public class SpawnCircle : MonoBehaviour
         newObject.transform.localScale = new Vector3(circleFinalSize[id], 0.1f, circleFinalSize[id]);
         newObject.transform.localRotation = Quaternion.Euler(90, 0, 0);
         newObject.transform.localPosition = spawnArea[id];
+        //set the index of the circle and add it to the target list
         newObject.GetComponent<CircleLife>().Init(id);
         targetCircle.Add(newObject);
 
@@ -89,6 +96,12 @@ public class SpawnCircle : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// show the gaze offset on a given circle's center and draw a line
+    /// from the circle's center to the last gaze position for that circle
+    /// </summary>
+    /// <param name="id">int id of the circle</param>
+    /// <param name="pos">Vector3 position of the circle</param>
     private void ShowOffset(int id, Vector3 pos)
     {
         GameObject newGazePoint = Instantiate(gazeDot);
@@ -114,10 +127,16 @@ public class SpawnCircle : MonoBehaviour
 
         offsetGazeList.Add(go);
     }
+
+    /// <summary>
+    /// Show every gaze path to every target
+    /// </summary>
     private void ShowAllPath()
     {
+        //parse each path list
         foreach (var path in GazeMarker.savedGazePath)
         {
+            //create an empty GO
             var go = new GameObject();
             go.transform.SetParent(gameObject.transform.parent);
             go.name = "path";
@@ -125,26 +144,30 @@ public class SpawnCircle : MonoBehaviour
             go.transform.rotation = gameObject.transform.rotation;
             go.transform.localScale = gameObject.transform.localScale;
 
+            //add a linerenderer to draw the path
             var lr = go.AddComponent<LineRenderer>();
             lr.positionCount = path.Count;
             lr.startWidth = 0.04f;
             lr.endWidth = 0.04f;
             lr.useWorldSpace = false;
             lr.material.color = Color.green;
-
             int positionToSet = 0;
+            //parse all the gaze path vector3 and draw the path
             foreach (var pos in path)
             {
                 lr.SetPosition(positionToSet, pos);
                 positionToSet++;
             }
+            //set the parents to its target
             go.transform.SetParent(gameObject.transform);
             goPathList.Add(go);
         }
     }
 
     /// <summary>
-    /// Show every circle with their final size
+    /// Show every circle with their final size, 
+    /// the gaze path, the offset, and the gaze position
+    /// when we changed the target
     /// </summary>
     public void Result()
     {
@@ -157,11 +180,16 @@ public class SpawnCircle : MonoBehaviour
         WorstOffset();
     }
 
+    /// <summary>
+    /// Determine the worst X and Y offset
+    /// </summary>
     private void WorstOffset()
     {
         float worstX = 0;
         float worstY = 0;
 
+        //get the absolute X and Y offset of each circle and substract its target's position,
+        //keep the biggest offset on X and Y in fovStatic for the fov calibration scene
         for (int i = 0; i < indexOrder.Count; i++)
         {
             float offsetX = Mathf.Abs(finalGazePos[indexOrder[i]].x);
@@ -201,6 +229,7 @@ public class SpawnCircle : MonoBehaviour
             Destroy(obj);
         }
 
+        //clear all lists and destroy all GO on the grid
         if (retry)
         {
             targetCircle.Clear();
@@ -220,6 +249,9 @@ public class SpawnCircle : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Clear all the lists
+    /// </summary>
     void OnDestroy()
     {
         targetCircle.Clear();

@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
+/// <summary>
+/// writing logs in the log file
+/// </summary>
 public class CsvWriter : IDisposable
 {
 
@@ -32,6 +35,6 @@ public class CsvWriter : IDisposable
     public void Dispose()
     {
         _stream.Close();
-        GC.SuppressFinalize(this); // delete?
+        GC.SuppressFinalize(this);
     }
 }

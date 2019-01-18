@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+//deprecated script, use PupilLabData script
 public class PupilInfo : MonoBehaviour
 {
 

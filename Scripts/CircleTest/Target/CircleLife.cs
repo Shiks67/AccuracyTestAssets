@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+/// <summary>
+/// Target lifetime and TTFF,
+/// save his informations when it's destroyed
+/// </summary>
 public class CircleLife : MonoBehaviour
 {
     public float TTFF;
     public bool isTTFF;
     private int index;
+
+    /// <summary>
+    /// set the index for the lists where it save its data
+    /// </summary>
+    /// <param name="index"></param>
     public void Init(int index)
     {
         this.index = index;
@@ -25,7 +34,7 @@ public class CircleLife : MonoBehaviour
         //if there is more than 1 circle, return
         if (SpawnCircle.targetCircle.Count > 1)
             return;
-        if (isTTFF) //update TTFF time until the circle is focused by the gaze point
+        if (isTTFF) //update TTFF time until the circle is focused by the gaze point (when the scale change)
             TTFF += Time.deltaTime;
         if (gameObject.transform.localScale.x < 30)
             isTTFF = false;

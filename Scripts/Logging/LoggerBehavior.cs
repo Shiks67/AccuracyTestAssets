@@ -37,8 +37,10 @@ public class LoggerBehavior : MonoBehaviour
 
     private void Update()
     {
+        //check if the current scene is a scene we need to log
         if (sceneName == "")
             return;
+        //check if there is any circle from the accuracy test
         if (SpawnCircle.targetCircle.Count == 1)
         {
             gazePosx = (GameController.gazePosition.x).ToString("F2");
@@ -50,6 +52,9 @@ public class LoggerBehavior : MonoBehaviour
         timer += Time.deltaTime;
     }
 
+    /// <summary>
+    /// get the data from the targets from the accuracy test scene
+    /// </summary>
     private void CircleInfo()
     {
         if (circleObject != SpawnCircle.targetCircle.First())
@@ -69,32 +74,45 @@ public class LoggerBehavior : MonoBehaviour
             Camera.main.nearClipPlane));
         }
 
-        //var raycastHit = EyeRay.CurrentlyHit;
+        //all the datas that will be saved in the log file
+        //1 variable = 1 column
         var tmp = new
         {
+            //userID
             aUserID = _logger.userID,
             aDate = _logger.FolderName.Replace('-', '/') + " - " + _logger.FileName.Replace('-', ':'),
             // default variables for all scenes
             a = Math.Round(timer, 3),
+            //check if we are in accuracy test or fov calibration scene
             sname = sceneName != "" ? sceneName : "No test scene",
+            //scene timer
             stimer = Math.Round(sceneTimer, 3) != 0 ? Math.Round(sceneTimer, 3) : double.NaN,
-            fps = (int)(1.0f / Time.unscaledDeltaTime), //frames per second during the last frame, could calculate an average frame rate instead
+            //frames per second during the last frame, could calculate an average frame rate instead
+            fps = (int)(1.0f / Time.unscaledDeltaTime),
 
+            //targets position from the accuracy test scene
             circleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN,
             circleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN,
 
+            //gaze position on X and Y
             j = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilData._2D.GazePosition.x, 3) : double.NaN,
             k = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilData._2D.GazePosition.y, 3) : double.NaN,
             // l = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(gazeToWorld.x, 3) : double.NaN,
             // m = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(gazeToWorld.y, 3) : double.NaN,
+
+            //gaze position on the grid of the accuracy test
             lbis = gazePosx,
             mbis = gazePosy,
+
+            //Confidence from left / right eye and the average of both
             // n = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilTools.FloatFromDictionary(PupilTools.gazeDictionary, "confidence"), 3) : double.NaN, // confidence value calculated after calibration 
             confLeft = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilLabData.confidence1, 3) : double.NaN, // confidence value calculated after calibration 
             confRight = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilLabData.confidence0, 3) : double.NaN, // confidence value calculated after calibration 
             confGaze = PupilData._2D.GazePosition != Vector2.zero ? Math.Round((PupilLabData.confidence0 + PupilLabData.confidence1) / 2, 3) : double.NaN,
 
+            //target size in the accuracy test scene, can be translated to the offset from the center of the scene
             circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
+            //TTFF of the targets in the accuracy test scene
             TimeToFirstFix = TTFF != 0 ? Math.Round(TTFF, 3) : double.NaN
         };
         _toLog.Add(tmp);
@@ -105,6 +123,9 @@ public class LoggerBehavior : MonoBehaviour
         return hit.transform.InverseTransformPoint(hit.point);
     }
 
+    /// <summary>
+    /// create the log .csv file and save the logs
+    /// </summary>
     public static void DoLog()
     {
         CSVheader = AppConstants.CsvFirstRow;

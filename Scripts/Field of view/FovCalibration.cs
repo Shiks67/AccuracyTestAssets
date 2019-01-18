@@ -6,15 +6,21 @@ using UnityEngine;
 public class FovCalibration : MonoBehaviour
 {
 
+    //all targets
     public GameObject UpLeft;
     public GameObject UpRight;
     public GameObject DownLeft;
     public GameObject DownRight;
+    //raycast
     private RayCaster rCaster;
+    //last hited GO
     private GameObject lastObj;
+    //index to find at which step of the calibration we are
     private int index = 0;
+    //speed of the moving targets
     private float speed = 1f;
     private GameObject obj;
+    //all the vertical and horizontal texts of the targets 
     public List<Text> verticalTextList = new List<Text>();
     public List<Text> horizontalTextList = new List<Text>();
 
@@ -23,48 +29,49 @@ public class FovCalibration : MonoBehaviour
     {
         // rCaster = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<RayCastF>();
         rCaster = Camera.main.GetComponent<RayCaster>();
-        InitTargetScale();
 
+        //if the upleftpos target is at 0.0.0 we put back the targets at the last calibration
         if (FovStatic.upLeftPos != new Vector3(0, 0, 0))
             ResumeLastCalibration();
 
+        //logs name and scenetimer
         LoggerBehavior.sceneName = "Fov calibration";
         LoggerBehavior.sceneTimer = 0;
 
+        //change text on the targets
         RandomizeText();
 
+        //disable targets
         UpRight.SetActive(false);
         DownRight.SetActive(false);
         DownLeft.SetActive(false);
     }
 
-    private void InitTargetScale()
-    {
-        foreach (var text in verticalTextList)
-        {
-            var goParent = text.gameObject.transform.parent;
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
+        //update scene timer
         LoggerBehavior.sceneTimer += Time.deltaTime;
+        //press space to go to the next target
         if (Input.GetKeyUp(KeyCode.Space))
-            NextPart();
+            NextTarget();
 
+        //Raycast of from camera through the gaze point
         RaycastHit hit;
         if (Physics.Raycast(rCaster.ray, out hit))
         {
+            //save hited go and make it green
             obj = hit.transform.gameObject;
-            print(obj.transform.parent.gameObject);
             obj.GetComponent<Renderer>().material.color = Color.green;
 
+            //if the new hited object is different from the last one, change the last one's color to white again
             if ((obj != lastObj || obj == null) && lastObj != null)
                 lastObj.GetComponent<Renderer>().material.color = Color.white;
 
+            //hited GO become last hited GO
             lastObj = obj;
 
+            //Look at the name of the GO and his parent then move his parent to the right position
             if (obj.name == "Diagonal" && obj.transform.parent.gameObject.name == "UpLeft")
             {
                 hit.transform.parent.localPosition = new Vector3(hit.transform.parent.localPosition.x - speed * Time.deltaTime,
@@ -112,7 +119,13 @@ public class FovCalibration : MonoBehaviour
         }
     }
 
-    public void NextPart()
+    /// <summary>
+    /// Go to the next step
+    /// save the last step's target position for the fov
+    /// the position is updated with the different scales
+    /// active the next step's target
+    /// </summary>
+    public void NextTarget()
     {
         index++;
         if (index == 1)
@@ -145,6 +158,9 @@ public class FovCalibration : MonoBehaviour
              DownLeft.transform.localPosition.z / (5 / 0.31f));
     }
 
+    /// <summary>
+    /// resume the postion of the targets from the last calibration
+    /// </summary>
     private void ResumeLastCalibration()
     {
         UpLeft.transform.localPosition = new Vector3(FovStatic.upLeftPos.x * (5 / 0.31f), FovStatic.upLeftPos.y * (5 / 0.31f), FovStatic.upLeftPos.z * (5 / 0.31f));
@@ -153,6 +169,10 @@ public class FovCalibration : MonoBehaviour
         DownRight.transform.localPosition = new Vector3(FovStatic.downRightPos.x * (5 / 0.31f), FovStatic.downRightPos.y * (5 / 0.31f), FovStatic.downRightPos.z * (5 / 0.31f)); ;
     }
 
+    /// <summary>
+    /// reset the positions of the target, the index 
+    /// and only make the first step's target active
+    /// </summary>
     public void ResetFov()
     {
         FovStatic.upLeftPos = new Vector3(0, 0, 0);
@@ -175,6 +195,9 @@ public class FovCalibration : MonoBehaviour
 
     private string randomText = "";
 
+    /// <summary>
+    /// Randomize the text shown on the targets
+    /// </summary>
     public void RandomizeText()
     {
         foreach (var htext in horizontalTextList)
@@ -197,6 +220,9 @@ public class FovCalibration : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Increase the scale of the texts
+    /// </summary>
     public void IncreaseTextSize()
     {
         foreach (var htext in horizontalTextList)
@@ -213,6 +239,9 @@ public class FovCalibration : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// decrease the size of the texts
+    /// </summary>
     public void ReduceTextSize()
     {
         foreach (var htext in horizontalTextList)
@@ -231,6 +260,9 @@ public class FovCalibration : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// reset scene timer and scene name for logs when we leave the scene
+    /// </summary>
     void OnDestroy()
     {
         LoggerBehavior.sceneName = "";

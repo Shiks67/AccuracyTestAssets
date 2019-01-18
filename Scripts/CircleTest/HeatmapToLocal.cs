@@ -17,6 +17,7 @@ public class HeatmapToLocal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //pupil lab heatmap positionning
         part.simulationSpace = ParticleSystemSimulationSpace.Local;
     }
 }

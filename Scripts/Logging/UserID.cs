@@ -9,6 +9,7 @@ public class UserID : MonoBehaviour
     
     public void SetUserID()
     {
+        //save the user id from the pupil lab calibration scene to use it in another scene/scripts
         PlayerPrefs.SetString("UserID", userIDText.text);
     }
 }
