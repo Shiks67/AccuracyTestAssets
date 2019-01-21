@@ -72,7 +72,7 @@ public class PupilLabData : MonoBehaviour
                     case "confidence":
                         if (countDown < 0)
                             confidence1 = PupilTools.FloatFromDictionary(dictionary, item.Key);
-                        lconf.text = "Left confidence\n" + (confidence1 * 100) + "%";
+                        lconf.text = "Left confidence\n" + System.Math.Round(confidence1 * 100) + "%";
                         break;
                     //Normalized position of the fixation's centroid, used to show where is the pupil on the frame
                     case "norm_pos":
@@ -113,7 +113,7 @@ public class PupilLabData : MonoBehaviour
                     case "confidence":
                         if (countDown < 0)
                             confidence0 = PupilTools.FloatFromDictionary(dictionary, item.Key);
-                        rconf.text = "Right Confidence\n" + (confidence0 * 100) + "%";
+                        rconf.text = "Right Confidence\n" + System.Math.Round(confidence0 * 100) + "%";
                         break;
                     case "norm_pos":
                         var positionForKey = PupilTools.VectorFromDictionary(dictionary, item.Key);

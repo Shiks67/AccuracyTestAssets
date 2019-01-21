@@ -11,6 +11,6 @@ public class RightConfidence : MonoBehaviour
 	//Update current confidence of the right eye text
     void Update()
     {
-        this.gameObject.GetComponent<Text>().text = "Right confidence\n" + (PupilLabData.confidence0 * 100) + "%";
+        this.gameObject.GetComponent<Text>().text = "Right confidence\n" + System.Math.Round(PupilLabData.confidence0 * 100) + "%";
     }
 }
