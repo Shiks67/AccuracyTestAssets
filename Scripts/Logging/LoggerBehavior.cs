@@ -88,7 +88,7 @@ public class LoggerBehavior : MonoBehaviour
             //scene timer
             stimer = Math.Round(sceneTimer, 3) != 0 ? Math.Round(sceneTimer, 3) : double.NaN,
             //frames per second during the last frame, could calculate an average frame rate instead
-            fps = (int)(1.0f / Time.unscaledDeltaTime),
+            fps = (int)(1.0f / Time.deltaTime),
 
             //targets position from the accuracy test scene
             circleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN,
