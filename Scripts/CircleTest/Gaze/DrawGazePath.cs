@@ -10,6 +10,7 @@ public class DrawGazePath : MonoBehaviour
     private LineRenderer line;
     private Vector3 lastPos;
     private List<Vector3> currentLinePoints = new List<Vector3>();
+    private GameObject lastTarget;
     void Start()
     {
         SetupLine();
@@ -22,11 +23,12 @@ public class DrawGazePath : MonoBehaviour
         if (SpawnCircle.targetCircle.Count != 1)
             return;
         //save all the gazemarkers position during the same target, space destroy the target aswell
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (SpawnCircle.targetCircle[0] != lastTarget)
         {
             GazeMarker.savedGazePath.Add(new List<Vector3>(currentLinePoints));
             line.positionCount = 0;
             currentLinePoints.Clear();
+            lastTarget = SpawnCircle.targetCircle[0];
         }
         //avoid saving staring position to save place, add the position and draw the path
         if (lastPos != GazeMarker.gazePath[GazeMarker.gazePath.Count - 1])

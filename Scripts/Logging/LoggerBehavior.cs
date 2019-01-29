@@ -40,7 +40,7 @@ public class LoggerBehavior : MonoBehaviour
         //check if the current scene is a scene we need to log
         if (sceneName == "")
             return;
-        //check if there is any circle from the accuracy test
+        //check if there is 1 circle from the accuracy test displayed on the grid
         if (SpawnCircle.targetCircle.Count == 1)
         {
             gazePosx = (GameController.gazePosition.x).ToString("F2");
@@ -78,9 +78,6 @@ public class LoggerBehavior : MonoBehaviour
         //1 variable = 1 column
         var tmp = new
         {
-            //userID
-            aUserID = _logger.userID,
-            aDate = _logger.FolderName.Replace('-', '/') + " - " + _logger.FileName.Replace('-', ':'),
             // default variables for all scenes
             a = Math.Round(timer, 3),
             //check if we are in accuracy test or fov calibration scene
@@ -112,6 +109,7 @@ public class LoggerBehavior : MonoBehaviour
 
             //target size in the accuracy test scene, can be translated to the offset from the center of the scene
             circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
+            offset = Math.Round(GameController.gazePosition.x - circleObject.transform.localPosition.x, 3) + "-" + Math.Round(GameController.gazePosition.y - circleObject.transform.localPosition.y, 3),
             //TTFF of the targets in the accuracy test scene
             TimeToFirstFix = TTFF != 0 ? Math.Round(TTFF, 3) : double.NaN
         };
@@ -126,12 +124,14 @@ public class LoggerBehavior : MonoBehaviour
     /// <summary>
     /// create the log .csv file and save the logs
     /// </summary>
-    public static void DoLog()
+    private void DoLog()
     {
         CSVheader = AppConstants.CsvFirstRow;
         _logger = Logger.Instance;
         if (_toLog.Count == 0)
         {
+            StartConfigLog();
+
             var firstRow = new { CSVheader };
             _toLog.Add(firstRow);
         }
@@ -139,5 +139,30 @@ public class LoggerBehavior : MonoBehaviour
         _toLog.Clear();
     }
 
+    /// <summary>
+    /// logging startconfig info
+    /// </summary>
+    private void StartConfigLog()
+    {
+        string userConfigRow = "UserID;Date - Time;Wearing make-up;Wearing glasses;gaze dot displayed;grid displayed;using input;target lifespan (ms);";
+        _toLog.Add(userConfigRow);
+        _logger.Log(_toLog.ToArray());
+        _toLog.Clear();
+
+        var userConfig = new
+        {
+            userID = _logger.userID,
+            dateTime = _logger.FolderName.Replace('-', '/') + " - " + _logger.FileName.Replace('-', ':'),            
+            makeup = StartConfig.makeUp ? "Yes" : "No",
+            glasses = StartConfig.glasses ? "Yes" : "No",
+            gazeDot = StartConfig.gazeDot ? "Yes" : "No",
+            grid = StartConfig.grid ? "Yes" : "No",
+            inputMode = StartConfig.inputMode  ? "Yes" : "No",
+            targetLifespan = StartConfig.targetLifeSpan
+        };
+        _toLog.Add(userConfig);
+        _logger.Log(_toLog.ToArray());
+        _toLog.Clear();
+    }
     #endregion
 }

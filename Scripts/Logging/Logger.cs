@@ -12,7 +12,7 @@ public class Logger
     #region Fields
     private static Logger _instance;
 
-    public string userID = PlayerPrefs.GetString("UserID");
+    public string userID = StartConfig.userID;
     public string FolderName = DateTime.Now.ToString("MM-dd-yy");
     public string FileName = DateTime.Now.ToString("hh-mm-ss"); // + LoggerBehavior.sceneName;
 
@@ -27,7 +27,8 @@ public class Logger
         //if there is no forbidden char save the userID
         if (nonUsableChar.Any(this.userID.Contains))
         {
-            this.userID = Regex.Replace(this.userID, "[\\/:*?<>|\\]", ".");
+            foreach (var c in nonUsableChar)
+            { this.userID = Regex.Replace(this.userID, c, "-"); }
         }
     }
 

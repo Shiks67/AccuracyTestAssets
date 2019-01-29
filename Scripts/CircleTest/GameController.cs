@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
-            if (hit.transform.name == "Quadri")
+            if (hit.transform.name == "Grid")
             {
                 gazePosObj.transform.localPosition = hit.transform.InverseTransformPoint(hit.point);
                 gazePosition = hit.transform.InverseTransformPoint(hit.point);
@@ -82,8 +82,8 @@ public class GameController : MonoBehaviour
         if (circle.transform.localScale.x > 0)
         {
             circle.transform.localScale =
-           new Vector3(circle.transform.localScale.x - 15f * (Time.deltaTime * 4),
-           0.1f, circle.transform.localScale.z - 15f * (Time.deltaTime * 4));
+           new Vector3(circle.transform.localScale.x - 5f * (Time.deltaTime * 6),
+           0.1f, circle.transform.localScale.z - 5f * (Time.deltaTime * 6));
         }
     }
 
@@ -98,8 +98,8 @@ public class GameController : MonoBehaviour
         {
             //15f * Time.deltaTime so the computers speed doesn't affect the speed
             circle.transform.localScale =
-            new Vector3(circle.transform.localScale.x + 15f * (Time.deltaTime * 4),
-            0.1f, circle.transform.localScale.z + 15f * (Time.deltaTime * 4));
+            new Vector3(circle.transform.localScale.x + 5f * (Time.deltaTime * 6),
+            0.1f, circle.transform.localScale.z + 5f * (Time.deltaTime * 6));
         }
     }
 }
