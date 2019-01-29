@@ -12,7 +12,8 @@ public class CircleLife : MonoBehaviour
     private Vector3 lastSize;
     private Vector3 currentSize;
     private int nbOfSwitch;
-    private float limitTimer; public float TTFF;
+    private float limitTimer = 1f;
+    public float TTFF;
     public bool isTTFF;
     private bool isBigger, isSmaller;
     private int index;
@@ -30,7 +31,7 @@ public class CircleLife : MonoBehaviour
         isSmaller = true;
         isBigger = true;
         lastSize = gameObject.transform.localScale;
-        lifeTime = StartConfig.targetLifeSpan;
+        lifeTime = StartConfig.targetLifeSpan / 1000;
         isTTFF = true;
     }
 
@@ -63,14 +64,14 @@ public class CircleLife : MonoBehaviour
         if (currentSize.x < lastSize.x)
         {
             Reducing();
-            lifeTime = StartConfig.targetLifeSpan;
+            lifeTime = StartConfig.targetLifeSpan / 1000;
             //put isTTFF false so the TTFF time doesn't update anymore
             isTTFF = false;
         }
         if (currentSize.x > lastSize.x)
         {
             Extending();
-            lifeTime = StartConfig.targetLifeSpan;
+            lifeTime = StartConfig.targetLifeSpan / 1000;
         }
         //if the size of the circle is 0 or less OR if the size edit switched more than 5 times
         if (currentSize.x <= 0 || nbOfSwitch > 5)

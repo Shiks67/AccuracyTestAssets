@@ -27,7 +27,7 @@ public static class AppConstants
 
     public const string CsvFirstRow = "Session Time (s);Scene Name;Scene Timer (s);framerate (fps);circle_pos_x;circle_pos_y; " +
      "pupilData_gaze_x;pupilData_gaze_y;gaze_on_grid_x;gaze_on_grid_y;Left_eye_conf;Right_eye_conf;gaze_confidence;" +
-     "circle_radius;Offset Vector2(x-y);Time_To_First_Fix (s);";
+     "circle_radius;Offset X;Offset Y;Time_To_First_Fix (s);";
 
     #endregion
 }

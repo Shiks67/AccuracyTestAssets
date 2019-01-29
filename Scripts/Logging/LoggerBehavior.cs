@@ -111,7 +111,8 @@ public class LoggerBehavior : MonoBehaviour
 
             //target size in the accuracy test scene, can be translated to the offset from the center of the scene
             circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
-            offset = Math.Round(Convert.ToSingle(gazePosx) - circleXpos, 3) + "/" + Math.Round(Convert.ToSingle(gazePosy) - circleYpos, 3),
+            offsetX = Math.Round(Convert.ToSingle(gazePosx) - circleXpos, 3),
+            offsetY = Math.Round(Convert.ToSingle(gazePosy) - circleYpos, 3),
             //TTFF of the targets in the accuracy test scene
             TimeToFirstFix = TTFF != 0 ? Math.Round(TTFF, 3) : double.NaN
         };
