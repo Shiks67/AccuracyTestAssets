@@ -16,6 +16,7 @@ public class LoggerBehavior : MonoBehaviour
     private static List<object> _toLog;
     private Vector3 gazeToWorld;
     private static string CSVheader = AppConstants.CsvFirstRow;
+    private static string CSVuserConfig = AppConstants.CSVUserConfigRow;
 
     //CircleTruc log var
     private GameObject circleObject;
@@ -39,9 +40,6 @@ public class LoggerBehavior : MonoBehaviour
 
     private void Update()
     {
-        //check if the current scene is a scene we need to log
-        if (sceneName == "")
-            return;
         //check if there is 1 circle from the accuracy test displayed on the grid
         if (SpawnCircle.targetCircle.Count == 1)
         {
@@ -113,7 +111,7 @@ public class LoggerBehavior : MonoBehaviour
 
             //target size in the accuracy test scene, can be translated to the offset from the center of the scene
             circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
-            offset = Math.Round(Convert.ToSingle(gazePosx) - circleXpos, 3) + "-" + Math.Round(Convert.ToSingle(gazePosy) - circleYpos, 3),
+            offset = Math.Round(Convert.ToSingle(gazePosx) - circleXpos, 3) + "/" + Math.Round(Convert.ToSingle(gazePosy) - circleYpos, 3),
             //TTFF of the targets in the accuracy test scene
             TimeToFirstFix = TTFF != 0 ? Math.Round(TTFF, 3) : double.NaN
         };
@@ -146,22 +144,24 @@ public class LoggerBehavior : MonoBehaviour
     /// </summary>
     private void StartConfigLog()
     {
+        CSVuserConfig = AppConstants.CSVUserConfigRow;
         _logger = Logger.Instance;
-        
-        string userConfigRow = "UserID;Date - Time;Wearing make-up;Wearing glasses;gaze dot displayed;grid displayed;using input;target lifespan (ms);";
-        _toLog.Add(userConfigRow);
+
+        var ucFirstRown = new { CSVuserConfig };
+        _toLog.Add(ucFirstRown);
         _logger.Log(_toLog.ToArray());
         _toLog.Clear();
 
+        _logger = Logger.Instance;
         var userConfig = new
         {
             userID = _logger.userID,
-            dateTime = _logger.FolderName.Replace('-', '/') + " - " + _logger.FileName.Replace('-', ':'),            
+            dateTime = _logger.FolderName.Replace('-', '/') + " - " + _logger.FileName.Replace('-', ':'),
             makeup = StartConfig.makeUp ? "Yes" : "No",
             glasses = StartConfig.glasses ? "Yes" : "No",
             gazeDot = StartConfig.gazeDot ? "Yes" : "No",
             grid = StartConfig.grid ? "Yes" : "No",
-            inputMode = StartConfig.inputMode  ? "Yes" : "No",
+            inputMode = StartConfig.inputMode ? "Yes" : "No",
             targetLifespan = StartConfig.targetLifeSpan
         };
         _toLog.Add(userConfig);

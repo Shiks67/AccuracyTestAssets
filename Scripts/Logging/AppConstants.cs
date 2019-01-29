@@ -23,6 +23,8 @@ public static class AppConstants
     #region LoggerBehavior Constants
 
     //First row, name of the columns, need to be in the same order as the tmp var in AddToLog in LoggerBehavior script
+    public const string CSVUserConfigRow = "UserID;Date - Time;Wearing make-up;Wearing glasses;gaze dot displayed;grid displayed;using input;target lifespan (ms);";
+
     public const string CsvFirstRow = "Session Time (s);Scene Name;Scene Timer (s);framerate (fps);circle_pos_x;circle_pos_y; " +
      "pupilData_gaze_x;pupilData_gaze_y;gaze_on_grid_x;gaze_on_grid_y;Left_eye_conf;Right_eye_conf;gaze_confidence;" +
      "circle_radius;Offset Vector2(x-y);Time_To_First_Fix (s);";
