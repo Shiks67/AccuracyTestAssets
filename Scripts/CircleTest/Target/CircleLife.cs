@@ -26,10 +26,10 @@ public class CircleLife : MonoBehaviour
     public void Init(int index)
     {
         this.index = index;
-        lastSize = gameObject.transform.localScale;
         nbOfSwitch = 0;
         isSmaller = true;
         isBigger = true;
+        lastSize = gameObject.transform.localScale;
         lifeTime = StartConfig.targetLifeSpan;
         isTTFF = true;
     }

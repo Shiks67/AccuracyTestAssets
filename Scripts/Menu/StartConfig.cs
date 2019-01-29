@@ -37,10 +37,9 @@ public class StartConfig : MonoBehaviour
         gazeDot = isGazeDotToggle.isOn;
         grid = isGridToggle.isOn;
         inputMode = isInputMode.isOn;
+        print(targetLifeSpanValue.text);
         if (targetLifeSpanTxt.enabled)
-            if (Single.TryParse(targetLifeSpanTxt.text, out targetLifeSpan))
-                Console.WriteLine(targetLifeSpan);
-        // targetLifeSpan = Convert.ToSingle(targetLifeSpanTxt.text);
+            targetLifeSpan = Convert.ToSingle(targetLifeSpanValue.text);
         else
             targetLifeSpan = 0;
 
