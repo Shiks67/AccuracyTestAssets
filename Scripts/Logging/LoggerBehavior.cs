@@ -20,6 +20,7 @@ public class LoggerBehavior : MonoBehaviour
     //CircleTruc log var
     private GameObject circleObject;
     private string gazePosx, gazePosy;
+    private double circleXpos, circleYpos;
     private float TTFF;
     public static float sceneTimer = 0;
     public static string sceneName = "";
@@ -33,6 +34,7 @@ public class LoggerBehavior : MonoBehaviour
     private void Start()
     {
         _toLog = new List<object>();
+        StartConfigLog();
     }
 
     private void Update()
@@ -45,6 +47,8 @@ public class LoggerBehavior : MonoBehaviour
         {
             gazePosx = (GameController.gazePosition.x).ToString("F2");
             gazePosy = (GameController.gazePosition.y).ToString("F2");
+            circleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN;
+            circleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN;
             CircleInfo();
         }
         DoLog();
@@ -88,8 +92,8 @@ public class LoggerBehavior : MonoBehaviour
             fps = (int)(1.0f / Time.deltaTime),
 
             //targets position from the accuracy test scene
-            circleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN,
-            circleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN,
+            logcircleXpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.x, 3) : double.NaN,
+            logcircleYpos = circleObject != null ? Math.Round(circleObject.transform.localPosition.y, 3) : double.NaN,
 
             //gaze position on X and Y
             j = PupilData._2D.GazePosition != Vector2.zero ? Math.Round(PupilData._2D.GazePosition.x, 3) : double.NaN,
@@ -109,7 +113,7 @@ public class LoggerBehavior : MonoBehaviour
 
             //target size in the accuracy test scene, can be translated to the offset from the center of the scene
             circleSize = circleObject != null ? Math.Round(circleObject.transform.localScale.x, 3) : double.NaN,
-            offset = Math.Round(GameController.gazePosition.x - circleObject.transform.localPosition.x, 3) + "-" + Math.Round(GameController.gazePosition.y - circleObject.transform.localPosition.y, 3),
+            offset = Math.Round(Convert.ToSingle(gazePosx) - circleXpos, 3) + "-" + Math.Round(Convert.ToSingle(gazePosy) - circleYpos, 3),
             //TTFF of the targets in the accuracy test scene
             TimeToFirstFix = TTFF != 0 ? Math.Round(TTFF, 3) : double.NaN
         };
@@ -130,8 +134,6 @@ public class LoggerBehavior : MonoBehaviour
         _logger = Logger.Instance;
         if (_toLog.Count == 0)
         {
-            StartConfigLog();
-
             var firstRow = new { CSVheader };
             _toLog.Add(firstRow);
         }
@@ -144,6 +146,8 @@ public class LoggerBehavior : MonoBehaviour
     /// </summary>
     private void StartConfigLog()
     {
+        _logger = Logger.Instance;
+        
         string userConfigRow = "UserID;Date - Time;Wearing make-up;Wearing glasses;gaze dot displayed;grid displayed;using input;target lifespan (ms);";
         _toLog.Add(userConfigRow);
         _logger.Log(_toLog.ToArray());
